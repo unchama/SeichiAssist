@@ -13,6 +13,7 @@ import java.util.UUID;
 import com.github.unchama.seichiassist.commands.*;
 import com.github.unchama.seichiassist.listener.*;
 import com.github.unchama.seichiassist.listener.newyearevent.*;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -39,13 +40,16 @@ import com.github.unchama.seichiassist.commands.seichiCommand;
 import com.github.unchama.seichiassist.commands.shareinvCommand;
 import com.github.unchama.seichiassist.commands.stickCommand;
 import com.github.unchama.seichiassist.data.GachaData;
+import com.github.unchama.seichiassist.data.LoadWaitPlayerData;
 import com.github.unchama.seichiassist.data.MineStackGachaData;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.RankData;
 import com.github.unchama.seichiassist.task.HalfHourTaskRunnable;
+import com.github.unchama.seichiassist.task.LoadMultiPlayerDataTaskRunnable;
 import com.github.unchama.seichiassist.task.MinuteTaskRunnable;
 import com.github.unchama.seichiassist.task.PlayerDataBackupTaskRunnable;
 import com.github.unchama.seichiassist.task.PlayerDataSaveTaskRunnable;
+import com.github.unchama.seichiassist.task.PlayerDataUpdateOnJoinRunnable;
 import com.github.unchama.seichiassist.util.Util;
 
 
@@ -89,6 +93,9 @@ public class SeichiAssist extends JavaPlugin{
 
 	//Playerdataに依存するデータリスト
 	public static final HashMap<UUID,PlayerData> playermap = new HashMap<UUID,PlayerData>();
+	
+	//sqlロード待ちplayerdataリスト
+	public static final ArrayList<LoadWaitPlayerData> loadWaitPlayerList = new ArrayList<LoadWaitPlayerData>();
 
 	//総採掘量ランキング表示用データリスト
 	public static final List<RankData> ranklist = new ArrayList<RankData>();
@@ -772,6 +779,8 @@ public class SeichiAssist extends JavaPlugin{
 		}else{
 			tasklist.add(new PlayerDataBackupTaskRunnable().runTaskTimer(this,12800,12000));
 		}
+		
+		tasklist.add(new LoadMultiPlayerDataTaskRunnable().runTaskTimerAsynchronously(this, 0, 100));
 	}
 
 	public void stopAllTaskRunnable(){

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -13,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.github.unchama.seichiassist.Config;
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.Sql;
+import com.github.unchama.seichiassist.data.LoadWaitPlayerData;
 import com.github.unchama.seichiassist.data.PlayerData;
 
 /**
@@ -32,6 +34,7 @@ public class CheckAlreadyExistPlayerDataTaskRunnable extends BukkitRunnable{
 	private String db = config.getDB();
 
 	private HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private List<LoadWaitPlayerData> loadWaitPlayerList = SeichiAssist.loadWaitPlayerList;
 
 	private PlayerData playerData;
 	private String name;
@@ -110,7 +113,7 @@ public class CheckAlreadyExistPlayerDataTaskRunnable extends BukkitRunnable{
 		}else if(count == 1){
 			//uuidが存在するときの処理
 			plugin.getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + name + "のプレイヤーデータ読み込み開始");
-			new LoadPlayerDataTaskRunnable(playerData).runTaskTimerAsynchronously(plugin, 0, 20);
+			this.loadWaitPlayerList.add(new LoadWaitPlayerData(playerData));
 			new PlayerDataUpdateOnJoinRunnable(playerData).runTaskTimer(plugin, 0, 20);
 
 		}else{
