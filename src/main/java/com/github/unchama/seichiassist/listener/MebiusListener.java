@@ -8,7 +8,6 @@ import java.net.URLConnection;
 import java.util.*;
 
 import de.tr7zw.itemnbtapi.*;
-import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

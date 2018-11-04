@@ -1,0 +1,79 @@
+group 'jp.minecraftserver.git'
+version '0.9.31'
+
+apply plugin: 'java'
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotAPI-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+    maven {
+        name = 'mysql-connector-repo'
+        url = 'https://mvnrepository.com/artifact/mysql/mysql-connector-java'
+    }
+    maven {
+        name = 'worldedit-repo'
+        url = 'http://maven.sk89q.com/repo/'
+    }
+    maven {
+       name = 'inventive-repo'
+       url = 'https://repo.inventivetalent.org/content/groups/public/'
+    }
+    maven {
+        name = 'jitpack.io'
+        url = 'https://jitpack.io'
+    }
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    //compile 'org.spigotmc:spigot-api:1.10.2-R0.1-SNAPSHOT'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.35'
+    implementation group: 'com.sk89q.worldedit', name: 'worldedit-bukkit', version: '6.1.3-SNAPSHOT'
+    implementation group: 'com.sk89q.worldguard', name: 'worldguard-legacy', version: '6.1.2'
+    implementation group: 'org.inventivetalent', name: 'particleapi', version: '2.1.1'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.5'
+    implementation 'com.github.tr7zw.Item-NBT-API:item-nbt-api:-SNAPSHOT'
+    implementation fileTree(dir: 'bins', includes: ['*.jar'])
+}
+
+/*
+jar {
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+*/
+
+task copyJar(type: Copy){
+    from jar
+    into "C:\\Users\\karayuu\\Documents\\sponge(1.12.2)\\server\\mods"
+}
+
+task copyJarMac(type: Copy) {
+    //TODO:ここを変更する。
+    from jar
+    into "/Users/Seichi_Server/plugins"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    filteringCharset = 'UTF-8'
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
