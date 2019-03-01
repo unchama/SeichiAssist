@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.test.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -990,6 +991,9 @@ public class SeichiAssist extends JavaPlugin{
 
 		//タスクスタート
 		startTaskRunnable();
+
+		/** テスト用 */
+        TestConfig.setConf(new CostomConf("test.yml").getConfig());
 
 		getLogger().info("SeichiAssist is Enabled!");
 	}
