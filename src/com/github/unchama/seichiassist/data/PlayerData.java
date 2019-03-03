@@ -1042,4 +1042,10 @@ public class PlayerData {
 
 		mana.calcMaxMana(p, this.level);
 	}
+
+	public static void sendNullWarning(Player player) {
+        player.sendMessage(ChatColor.RED + "playerdataがありません。管理者に報告してください");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "SeichiAssist[木の棒メニューOPEN処理]でエラー発生");
+        Bukkit.getLogger().warning(player.getName() + "のplayerdataがありません。開発者に報告してください");
+    }
 }

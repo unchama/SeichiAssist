@@ -184,31 +184,11 @@ public enum ActiveSkill{
 			}
 			break;
 		case "WATERCONDENSE":
-			switch(skilllevel){
-			case 7:
-				breaklength.setXYZ(7, 7, 7);
-				break;
-			case 8:
-				breaklength.setXYZ(9, 9, 9);
-				break;
-			case 9:
-				breaklength.setXYZ(11, 11, 11);
-				break;
-			}
-			break;
+            setCondenseRange(skilllevel, breaklength);
+            break;
 		case "LAVACONDENSE":
-			switch(skilllevel){
-			case 7:
-				breaklength.setXYZ(7, 7, 7);
-				break;
-			case 8:
-				breaklength.setXYZ(9, 9, 9);
-				break;
-			case 9:
-				breaklength.setXYZ(11, 11, 11);
-				break;
-			}
-			break;
+            setCondenseRange(skilllevel, breaklength);
+            break;
 		case "ARMOR":
 			breaklength.setXYZ(11, 11, 11);
 			break;
@@ -217,7 +197,22 @@ public enum ActiveSkill{
 		}
 		return breaklength;
 	}
-	//与えられたスキル種類とレベルに応じて名前を返す
+
+    private void setCondenseRange(int skilllevel, Coordinate breaklength) {
+        switch(skilllevel){
+        case 7:
+            breaklength.setXYZ(7, 7, 7);
+            break;
+        case 8:
+            breaklength.setXYZ(9, 9, 9);
+            break;
+        case 9:
+            breaklength.setXYZ(11, 11, 11);
+            break;
+        }
+    }
+
+    //与えられたスキル種類とレベルに応じて名前を返す
 	public static String getActiveSkillName(int typenum,int skilllevel) {
 		// 列挙定数を取得
 		ActiveSkill[] activeskill = ActiveSkill.values();

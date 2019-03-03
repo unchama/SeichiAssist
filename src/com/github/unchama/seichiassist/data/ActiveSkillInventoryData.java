@@ -1,10 +1,6 @@
 package com.github.unchama.seichiassist.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,13 +18,8 @@ import org.bukkit.potion.PotionType;
 
 import com.github.unchama.seichiassist.ActiveSkill;
 import com.github.unchama.seichiassist.SeichiAssist;
-import com.github.unchama.seichiassist.Sql;
 
 public class ActiveSkillInventoryData {
-	static HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
-	static Sql sql = SeichiAssist.sql;
-	SeichiAssist plugin = SeichiAssist.plugin;
-
 	//アクティブスキルメニュー
 	public static Inventory getActiveSkillMenuData(Player p){
 		//プレイヤーを取得
@@ -39,9 +30,7 @@ public class ActiveSkillInventoryData {
 		PlayerData playerdata = SeichiAssist.playermap.get(uuid);
 		//念のためエラー分岐
 		if(playerdata == null){
-			player.sendMessage(ChatColor.RED + "playerdataがありません。管理者に報告してください");
-			Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "SeichiAssist[木の棒メニューOPEN処理]でエラー発生");
-			Bukkit.getLogger().warning(player.getName() + "のplayerdataがありません。開発者に報告してください");
+			PlayerData.sendNullWarning(player);
 			return null;
 		}
 
@@ -50,15 +39,14 @@ public class ActiveSkillInventoryData {
 		ItemMeta itemmeta;
 		PotionMeta potionmeta;
 		SkullMeta skullmeta;
-		List<String> lore = new ArrayList<String>();
+		List<String> lore;
 
 		// 1ページ目を開く
 		itemstack = new ItemStack(Material.SKULL_ITEM,1);
 		skullmeta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
 		itemstack.setDurability((short) 3);
 		skullmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ホームへ");
-		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動"
-				);
+		lore = Collections.singletonList(ChatColor.RESET + "" + ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動");
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowLeft");
 		itemstack.setItemMeta(skullmeta);
@@ -82,7 +70,7 @@ public class ActiveSkillInventoryData {
 		itemstack = new ItemStack(Material.GLASS,1);
 		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.GLASS);
 		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "スキルを使用しない");
-		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックでセット");
+		lore = Collections.singletonList(ChatColor.RESET + "" + ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックでセット");
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
 		inventory.setItem(1,itemstack);
