@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.github.unchama.seichiassist.arroweffect.*;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -40,9 +39,9 @@ import com.github.unchama.seichiassist.util.BreakUtil;
 import com.github.unchama.seichiassist.util.Util;
 
 public class PlayerClickListener implements Listener {
-	SeichiAssist plugin = SeichiAssist.plugin;
-	HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
-	List<GachaData> gachadatalist = SeichiAssist.gachadatalist;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
+	private final List<GachaData> gachadatalist = SeichiAssist.gachadatalist;
 	//アクティブスキル処理
 	@EventHandler
 	public void onPlayerActiveSkillEvent(PlayerInteractEvent event){
@@ -111,7 +110,7 @@ public class PlayerClickListener implements Listener {
 			        }
 					//エフェクトが指定されていないときの処理
 					if(playerdata.activeskilldata.effectnum == 0){
-						runArrowSkill(player,Arrow.class);
+						runArrowSkill(player);
 					}
 					//エフェクトが指定されているときの処理
 					else if(playerdata.activeskilldata.effectnum <= 100){
@@ -148,7 +147,7 @@ public class PlayerClickListener implements Listener {
 			        }
 					//エフェクトが指定されていないときの処理
 					if(playerdata.activeskilldata.effectnum == 0){
-						runArrowSkill(player,Arrow.class);
+						runArrowSkill(player);
 					}
 					//通常エフェクトが指定されているときの処理(100以下の番号に割り振る）
 					else if(playerdata.activeskilldata.effectnum <= 100){
@@ -166,7 +165,7 @@ public class PlayerClickListener implements Listener {
 			}
 		}
 	}
-	private <T extends org.bukkit.entity.Projectile> void runArrowSkill(Player player, Class<T> clazz) {
+	private <T extends org.bukkit.entity.Projectile> void runArrowSkill(Player player) {
 		//プレイヤーの位置を取得
 		Location ploc = player.getLocation();
 
@@ -181,7 +180,7 @@ public class PlayerClickListener implements Listener {
         vec.setX(vec.getX() * k);
         vec.setY(vec.getY() * k);
         vec.setZ(vec.getZ() * k);
-        final T proj = player.getWorld().spawn(loc, clazz);
+        final T proj = player.getWorld().spawn(loc, (Class<T>) Arrow.class);
         proj.setShooter(player);
         proj.setGravity(false);
         //読み込み方法

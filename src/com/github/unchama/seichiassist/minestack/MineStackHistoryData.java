@@ -8,7 +8,7 @@ import java.util.*;
  * Created by karayuu on 2018/06/13
  */
 public final class MineStackHistoryData {
-    private List<HistoryData> historyList = new ArrayList<>();
+    private final List<HistoryData> historyList = new ArrayList<>();
 
     /**
      * 履歴に追加します。ただし、データの保存可能な最大値を超えていた場合、先頭から削除されます。

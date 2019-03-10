@@ -15,10 +15,10 @@ import com.github.unchama.seichiassist.data.PlayerData;
 //import org.bukkit.plugin.java.JavaPlugin;
 
 public class TitleUnlockTaskRunnable {
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	PlayerData playerdata;
-	int TryTitleNo;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private Player player;
+	private PlayerData playerdata;
+	private int TryTitleNo;
 
 //    private JavaPlugin plugin;
 

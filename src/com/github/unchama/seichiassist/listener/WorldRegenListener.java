@@ -31,15 +31,15 @@ import com.wimbli.WorldBorder.WorldFillTask;
  */
 public class WorldRegenListener implements Listener {
 
-    private int roadY;
-    private int roadLength;
-    private int spaceHeight;
-	private int worldSize;
-    private BaseBlock roadBlock;
-    private BaseBlock spaceBlock;
+    private final int roadY;
+    private final int roadLength;
+    private final int spaceHeight;
+	private final int worldSize;
+    private final BaseBlock roadBlock;
+    private final BaseBlock spaceBlock;
 
-    private WorldEdit worldEdit;
-    private WorldGuardPlugin worldGuard;
+    private final WorldEdit worldEdit;
+    private final WorldGuardPlugin worldGuard;
 
 
     public WorldRegenListener() {
@@ -83,7 +83,7 @@ public class WorldRegenListener implements Listener {
         EditSession session = worldEdit.getEditSessionFactory().getEditSession(bukkitWorld, 99999999);
         try {
             // spawnの地形造成
-        	setupRoadWithWorldGuard(session, world, "spawn", new BlockVector(0, roadY, 0), new BlockVector(15, roadY, 15));
+        	setupRoadWithWorldGuard(session, world, new BlockVector(0, roadY, 0), new BlockVector(15, roadY, 15));
             // 東西南北へ続くroadの地形造成
         	setupRoad(session, world, new BlockVector(16, roadY, 0), new BlockVector(15 + 16 * roadLength, roadY, 15));
             setupRoad(session, world, new BlockVector(-1, roadY, 0), new BlockVector(-(16 * roadLength), roadY, 15));
@@ -111,16 +111,15 @@ public class WorldRegenListener implements Listener {
      * 地形造成と、地形造成を行った場所にWorldGuardRegionも設定する
      * @param session
      * @param world
-     * @param protName
      * @param pos1
      * @param pos2
      * @throws MaxChangedBlocksException
      */
-    private void setupRoadWithWorldGuard(EditSession session, World world, String protName, BlockVector pos1, BlockVector pos2) throws MaxChangedBlocksException {
+    private void setupRoadWithWorldGuard(EditSession session, World world, BlockVector pos1, BlockVector pos2) throws MaxChangedBlocksException {
         BukkitWorld bukkitWorld = new BukkitWorld(world);
         session.setBlocks(new CuboidRegion(bukkitWorld, pos1, pos2), roadBlock);
         session.setBlocks(new CuboidRegion(bukkitWorld, pos1.add(0, 1, 0), pos2.add(0, 1 + spaceHeight, 0)), spaceBlock);
-        ProtectedRegion region = new ProtectedCuboidRegion(protName, new BlockVector(pos1.getX(), 0, pos1.getZ()), new BlockVector(pos2.getX(), 255, pos2.getZ()));
+        ProtectedRegion region = new ProtectedCuboidRegion("spawn", new BlockVector(pos1.getX(), 0, pos1.getZ()), new BlockVector(pos2.getX(), 255, pos2.getZ()));
         WorldGuardPlugin.inst().getRegionManager(world).addRegion(region);
     }
 }

@@ -58,11 +58,11 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 public class PlayerInventoryListener implements Listener {
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	List<GachaData> gachadatalist = SeichiAssist.gachadatalist;
-	SeichiAssist plugin = SeichiAssist.plugin;
-	private Config config = SeichiAssist.config;
-	private Sql sql = SeichiAssist.sql;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final List<GachaData> gachadatalist = SeichiAssist.gachadatalist;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final Config config = SeichiAssist.config;
+	private final Sql sql = SeichiAssist.sql;
 	//サーバー選択メニュー
 	@EventHandler
 	public void onPlayerClickServerSwitchMenuEvent(InventoryClickEvent event){
@@ -5459,7 +5459,7 @@ public class PlayerInventoryListener implements Listener {
     		//妖精音トグル
     		else if (itemstackcurrent.getType().equals(Material.JUKEBOX)){
     			player.playSound(player.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1, 1);
-    			playerdata.toggleVFSound = playerdata.toggleVFSound ? false : true;
+    			playerdata.toggleVFSound = !playerdata.toggleVFSound;
     			player.openInventory(MenuInventoryData.getVotingMenuData(player));
     		}
 

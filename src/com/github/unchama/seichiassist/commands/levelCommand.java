@@ -21,8 +21,8 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class levelCommand implements TabExecutor{
-	public SeichiAssist plugin;
-	Sql sql = SeichiAssist.sql;
+	private final SeichiAssist plugin;
+	private final Sql sql = SeichiAssist.sql;
 
 
 	public levelCommand(SeichiAssist plugin){

@@ -32,29 +32,29 @@ import com.github.unchama.seichiassist.data.LimitedLoginEvent;
 import com.github.unchama.seichiassist.util.BukkitSerialization;
 import com.github.unchama.seichiassist.util.Timer;
 
-public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
+class LoadPlayerDataTaskRunnable extends BukkitRunnable{
 
-	private SeichiAssist plugin = SeichiAssist.plugin;
-	private HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	private Sql sql = SeichiAssist.sql;
-	private static Config config = SeichiAssist.config;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Sql sql = SeichiAssist.sql;
+	private static final Config config = SeichiAssist.config;
 
-	final String table = SeichiAssist.PLAYERDATA_TABLENAME;
-	LimitedLoginEvent LLE = new LimitedLoginEvent();
+	private final String table = SeichiAssist.PLAYERDATA_TABLENAME;
+	private final LimitedLoginEvent LLE = new LimitedLoginEvent();
 
-	String name;
-	Player p;
-	PlayerData playerdata;
-	final UUID uuid;
-	final String struuid;
-	String command;
-	public static String exc;
-	Boolean flag;
-	int i;
-	Statement stmt = null;
-	ResultSet rs = null;
-	String db;
-	Timer timer;
+	private final String name;
+	private final Player p;
+	private final PlayerData playerdata;
+	private final UUID uuid;
+	private final String struuid;
+	private String command;
+	private static String exc;
+	private Boolean flag;
+	private int i;
+	private Statement stmt = null;
+	private ResultSet rs = null;
+	private final String db;
+	private final Timer timer;
 
 	public LoadPlayerDataTaskRunnable(PlayerData playerData) {
 		timer = new Timer(Timer.MILLISECOND);
@@ -279,8 +279,7 @@ public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
  				try {
  				String[] Titlenums = rs.getString("TitleFlags").split(",");
  		        long[] Titlearray = Arrays.stream(Titlenums).mapToLong(x -> Long.parseUnsignedLong(x, 16)).toArray();
- 		        BitSet TitleFlags = BitSet.valueOf(Titlearray);
- 		        playerdata.TitleFlags = TitleFlags ;
+                    playerdata.TitleFlags = BitSet.valueOf(Titlearray);
  				}
  				catch(NullPointerException e){
  					playerdata.TitleFlags = new BitSet(10000);

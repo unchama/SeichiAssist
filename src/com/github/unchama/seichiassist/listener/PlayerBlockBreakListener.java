@@ -35,8 +35,8 @@ import com.github.unchama.seichiassist.util.BreakUtil;
 import com.github.unchama.seichiassist.util.Util;
 
 public class PlayerBlockBreakListener implements Listener {
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	private SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 	//アクティブスキルの実行
 	@EventHandler
 	public void onPlayerActiveSkillEvent(BlockBreakEvent event){
@@ -305,7 +305,7 @@ public class PlayerBlockBreakListener implements Listener {
 				break;
 			}
 			//実際に経験値を減らせるか判定
-			if(!mana.hasMana(useAllMana)){
+			if(mana.hasMana(useAllMana)){
 				//デバッグ用
 				if(SeichiAssist.DEBUG){
 					player.sendMessage(ChatColor.RED + "アクティブスキル発動に必要なマナが足りません");
@@ -481,7 +481,7 @@ public class PlayerBlockBreakListener implements Listener {
 
 
 		//実際に経験値を減らせるか判定
-		if(!mana.hasMana(useMana)){
+		if(mana.hasMana(useMana)){
 			//デバッグ用
 			if(SeichiAssist.DEBUG){
 				player.sendMessage(ChatColor.RED + "アクティブスキル発動に必要なマナが足りません");

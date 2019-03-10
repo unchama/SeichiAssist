@@ -16,7 +16,7 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.task.AssaultTaskRunnable;
 
 public class ActiveSkillData {
-	SeichiAssist plugin = SeichiAssist.plugin;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 	//アクティブスキルポイント
 	public int skillpoint;
 	//アクティブスキルエフェクトポイント
@@ -48,17 +48,17 @@ public class ActiveSkillData {
 	//採掘用アクティブスキルのフラグ 0:なし 1:上破壊 2:下破壊
 	public int mineflagnum;
 	//アサルトスキル.コンデンススキルのtask
-	public BukkitTask assaulttask;
+    private BukkitTask assaulttask;
 	//自然マナ回復のtask
 	public BukkitTask manaregenetask;
 	//アサルトスキルのフラグ
 	public boolean assaultflag;
 	//エフェクトの獲得フラグリスト<エフェクト番号,エフェクト獲得フラグ>
-	public Map<Integer,Boolean> effectflagmap;
+	public final Map<Integer,Boolean> effectflagmap;
 	//スペシャルエフェクトの獲得フラグリスト<エフェクト番号,エフェクト獲得フラグ>
-	public Map<Integer,Boolean> premiumeffectflagmap;
+	public final Map<Integer,Boolean> premiumeffectflagmap;
 	//スペシャルエフェクトを使用するフラグ
-	public boolean specialflag;
+    private final boolean specialflag;
 	//選択されているアクティブスキルの番号を格納
 	public int effectnum;
 	//通常スキルで破壊されるエリア
@@ -67,7 +67,7 @@ public class ActiveSkillData {
 	public BreakArea assaultarea;
 
 	//マナクラス
-	public Mana mana;
+	public final Mana mana;
 
 	public ActiveSkillData(){
 		mineflagnum = 0;
@@ -208,7 +208,7 @@ public class ActiveSkillData {
 		}
 	}
 	//スキル使用中の場合Taskを実行する
-	public void runTask(Player player) {
+    private void runTask(Player player) {
 
 		//アサルトスキルの実行
 		if(this.assaultflag && this.assaulttype != 0){
@@ -245,7 +245,7 @@ public class ActiveSkillData {
 		runTask(player);
 		mana.update(player,level);
 	}
-	public void updateonQuit(Player player) {
+	public void updateonQuit() {
 		mana.removeBar();
 	}
 }

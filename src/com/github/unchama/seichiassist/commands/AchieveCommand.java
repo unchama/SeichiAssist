@@ -18,10 +18,10 @@ import com.github.unchama.seichiassist.Sql;
 import com.github.unchama.seichiassist.data.PlayerData;
 
 public class AchieveCommand implements TabExecutor{
-	public SeichiAssist plugin;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	PlayerData playerdata;
+	private final SeichiAssist plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private Player player;
+	private PlayerData playerdata;
 
 
 
@@ -34,7 +34,7 @@ public class AchieveCommand implements TabExecutor{
 		return null;
 	}
 
-	public boolean isInt(String num) {
+	private boolean isInt(String num) {
 		try {
 			Integer.parseInt(num);
 			return true;

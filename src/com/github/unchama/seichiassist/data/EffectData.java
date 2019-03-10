@@ -5,10 +5,10 @@ import org.bukkit.potion.PotionEffectType;
 import com.github.unchama.seichiassist.util.Util;
 
 public class EffectData {
-	public PotionEffectType potioneffecttype;
+	private final PotionEffectType potioneffecttype;
 	public int duration;//持続時間
-	public double amplifier;//強さ
-	public int id;//上昇値の種類
+	public final double amplifier;//強さ
+	public final int id;//上昇値の種類
 	/*
 	 * id=0 不明な上昇値
 	 * id=1 接続人数から

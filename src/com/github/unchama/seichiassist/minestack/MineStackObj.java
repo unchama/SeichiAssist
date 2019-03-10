@@ -8,21 +8,21 @@ import org.bukkit.inventory.ItemStack;
 
 public class MineStackObj implements Comparable<MineStackObj>{
 
-	private String objname;
-	private String japanesename;
-	private int level;
-	private Material material;
-	private int durability;
-	private boolean nameloreflag;
-	private int gachatype;
+	private final String objname;
+	private final String japanesename;
+	private final int level;
+	private final Material material;
+	private final int durability;
+	private final boolean nameloreflag;
+	private final int gachatype;
 	private List<String> lore;
 	private ItemStack itemstack;
-	private int stacktype;
+	private final int stacktype;
 	private Enchantment needed_enchantment;
 
-	public MineStackObj(String objname, String japanesename,
-			int level, Material material, int durability,
-			boolean nameloreflag, int gachatype, int stacktype){
+	protected MineStackObj(String objname, String japanesename,
+                           int level, Material material, int durability,
+                           boolean nameloreflag, int gachatype, int stacktype){
 		this.objname = objname;
 		this.japanesename = japanesename;
 		this.level = level;
@@ -35,9 +35,9 @@ public class MineStackObj implements Comparable<MineStackObj>{
 		this.stacktype = stacktype;
 	}
 
-	public MineStackObj(String objname, String japanesename,
-			int level, Material material, int durability,
-			boolean nameloreflag, int gachatype, List<String> lore, int stacktype){
+	protected MineStackObj(String objname, String japanesename,
+                           int level, Material material, int durability,
+                           boolean nameloreflag, int gachatype, List<String> lore, int stacktype){
 		this.objname = objname;
 		this.japanesename = japanesename;
 		this.level = level;
@@ -64,15 +64,15 @@ public class MineStackObj implements Comparable<MineStackObj>{
 	}
 
 	protected MineStackObj(String objname, String japanesename, int level, Material material, int durability,
-						   boolean nameloreflag, int gachatype, int stacktype, Enchantment needed_enchantment) {
+                           int gachatype, Enchantment needed_enchantment) {
 		this.objname = objname;
 		this.japanesename = japanesename;
 		this.level = level;
 		this.material = material;
 		this.durability = durability;
-		this.nameloreflag = nameloreflag;
+		this.nameloreflag = true;
 		this.gachatype = gachatype;
-		this.stacktype = stacktype;
+		this.stacktype = 5;
 		this.needed_enchantment = needed_enchantment;
 	}
 

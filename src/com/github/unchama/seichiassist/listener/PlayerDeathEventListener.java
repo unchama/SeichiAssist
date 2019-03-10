@@ -16,8 +16,8 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
 
 public class PlayerDeathEventListener implements Listener {
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onDeath(PlayerDeathEvent event){

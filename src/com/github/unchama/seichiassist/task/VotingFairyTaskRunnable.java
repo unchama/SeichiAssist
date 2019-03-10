@@ -41,7 +41,7 @@ public class VotingFairyTaskRunnable {
 	}
 
 	//妖精効果音
-	public static void playSe(Player p) {
+	private static void playSe(Player p) {
 		p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 2f, 1f);
 		Bukkit.getServer().getScheduler().runTaskLater(SeichiAssist.plugin, new Runnable() {
 			public void run() {

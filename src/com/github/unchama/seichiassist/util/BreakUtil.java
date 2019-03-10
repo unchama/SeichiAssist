@@ -136,7 +136,7 @@ public class BreakUtil {
 
 	}
 
-	public static boolean addItemtoMineStack(Player player, ItemStack itemstack) {
+	private static boolean addItemtoMineStack(Player player, ItemStack itemstack) {
 		SeichiAssist plugin = SeichiAssist.plugin;
 		HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 		Config config = SeichiAssist.config;
@@ -184,7 +184,7 @@ public class BreakUtil {
 			if(material.equals(SeichiAssist.minestacklist.get(i).getMaterial()) &&
 				itemstack.getDurability() == SeichiAssist.minestacklist.get(i).getDurability()){
 				//この時点でIDとサブIDが一致している
-				if(SeichiAssist.minestacklist.get(i).getNameloreflag()==false && (!itemstack.getItemMeta().hasLore() && !itemstack.getItemMeta().hasDisplayName() ) ){//名前と説明文が無いアイテム
+				if(!SeichiAssist.minestacklist.get(i).getNameloreflag() && (!itemstack.getItemMeta().hasLore() && !itemstack.getItemMeta().hasDisplayName() ) ){//名前と説明文が無いアイテム
 					if(playerdata.level < config.getMineStacklevel(SeichiAssist.minestacklist.get(i).getLevel())){
 						//レベルを満たしていない
 						return false;
@@ -193,7 +193,7 @@ public class BreakUtil {
 						//delete_flag=true;
 						break;
 					}
-				} else if(SeichiAssist.minestacklist.get(i).getNameloreflag()==true && itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()){
+				} else if(SeichiAssist.minestacklist.get(i).getNameloreflag() && itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()){
 					//名前・説明文付き
 					ItemMeta meta = itemstack.getItemMeta();
 					/*
@@ -249,7 +249,7 @@ public class BreakUtil {
 
     }
 	@SuppressWarnings("deprecation")
-	public static ItemStack dropItemOnTool(Block breakblock, ItemStack tool) {
+    private static ItemStack dropItemOnTool(Block breakblock, ItemStack tool) {
 		ItemStack dropitem = null;
 		Material dropmaterial;
 		Material breakmaterial = breakblock.getType();
@@ -464,7 +464,7 @@ public class BreakUtil {
 		//10%の確率で経験値付与
 		if(rand < 0.1){
 			//Lv8未満は獲得経験値ゼロ、それ以上はレベルに応じて経験値付与
-			if(playerdata.level < 8 || playerdata.activeskilldata.skillcanbreakflag == false){
+			if(playerdata.level < 8 || !playerdata.activeskilldata.skillcanbreakflag){
 				return 0;
 			}else if (playerdata.level < 18){
 				return SeichiAssist.config.getDropExplevel(1);
@@ -665,7 +665,7 @@ public class BreakUtil {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static boolean logPlace(Player player, Block placeblock) {
+	public static void logPlace(Player player, Block placeblock) {
 		//設置するブロックの状態を取得
 		BlockState blockstate = placeblock.getState();
 		//設置するブロックのデータを取得
@@ -678,10 +678,8 @@ public class BreakUtil {
 		//もし失敗したらプレイヤーに報告し処理を終了
 		if(!success){
 			player.sendMessage(ChatColor.RED + "error:coreprotectに保存できませんでした。管理者に報告してください。");
-			return false;
-		}
-		return true;
-	}
+        }
+    }
 	/*
 	public static void addItemToPlayerDirectry(Player player,Block block,ItemStack tool){
 		ItemStack dropItem = dropItemOnTool(block, tool);

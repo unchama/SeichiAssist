@@ -37,13 +37,13 @@ import com.github.unchama.seichiassist.util.Util.DirectionType;
 
 
 public class PlayerData {
-	static Config config = SeichiAssist.config;
+	private static final Config config = SeichiAssist.config;
 	//読み込み済みフラグ
 	public boolean loaded = false;
 	//プレイヤー名
-	public String name;
+	public final String name;
 	//UUID
-	public UUID uuid;
+	public final UUID uuid;
 	//エフェクトのフラグ
 	public int effectflag;
 	//内訳メッセージを出すフラグ
@@ -51,7 +51,7 @@ public class PlayerData {
 	//1分間のデータを保存するincrease:１分間の採掘量
 	//public MineBlock minuteblock;
 	//３０分間のデータを保存する．
-	public MineBlock halfhourblock;
+	public final MineBlock halfhourblock;
 	//ガチャの基準となるポイント
 	public int gachapoint;
 	//最後のガチャポイントデータ
@@ -63,7 +63,7 @@ public class PlayerData {
 	//前回の採掘速度上昇レベルを格納
 	public int lastminespeedlv;
 	//持ってるポーションエフェクト全てを格納する．
-	public List<EffectData> effectdatalist;
+	public final List<EffectData> effectdatalist;
 	//現在のプレイヤーレベル
 	public int level;
 	//詫び券をあげる数
@@ -88,7 +88,7 @@ public class PlayerData {
 	//MineStackFlag
 	public boolean minestackflag;
 	//プレイ時間差分計算用int
-	public int servertick;
+    private int servertick;
 	//プレイ時間
 	public int playtick;
 	//キルログ表示トグル
@@ -114,15 +114,15 @@ public class PlayerData {
 	//トータル破壊ブロック
 	public long totalbreaknum;
 	//整地量バー
-	public ExpBar expbar;
+	public final ExpBar expbar;
 	//合計経験値
 	public int totalexp;
 	//経験値マネージャ
-	public ExperienceManager expmanager;
+    private final ExperienceManager expmanager;
 	//合計経験値統合済みフラグ
 	public byte expmarge;
 	//各統計値差分計算用配列
-	private List<Integer> staticdata;
+	private final List<Integer> staticdata;
 	//特典受け取り済み投票数
 	public int p_givenvote;
 	//投票受け取りボタン連打防止用
@@ -139,10 +139,10 @@ public class PlayerData {
 	public int ChainVote;
 
 	//アクティブスキル関連データ
-	public ActiveSkillData activeskilldata;
+	public final ActiveSkillData activeskilldata;
 
 	//MebiusTask
-	public MebiusTaskRunnable mebius;
+	public final MebiusTaskRunnable mebius;
 
 	//ガチャボタン連打防止用
 	public boolean gachacooldownflag;
@@ -153,10 +153,10 @@ public class PlayerData {
 	public boolean shareinvcooldownflag;
 
 	//サブのホームポイント
-	private Location[] sub_home = new Location[SeichiAssist.config.getSubHomeMax()];
+	private final Location[] sub_home = new Location[SeichiAssist.config.getSubHomeMax()];
 	public int selectHomeNum;
 	public int setHomeNameNum;
-	public String[] subhome_name = new String[SeichiAssist.config.getSubHomeMax()];
+	public final String[] subhome_name = new String[SeichiAssist.config.getSubHomeMax()];
 	public boolean isSubHomeNameChange;
 
 	//LV・二つ名表示切替用
@@ -225,11 +225,11 @@ public class PlayerData {
 	public boolean hasChocoGave;
 
 	//MineStackの履歴
-	public MineStackHistoryData hisotryData;
+	public final MineStackHistoryData hisotryData;
 	//MineStack検索機能使用中かどうか
-	public boolean isSearching;
+    private final boolean isSearching;
 	//MineStack検索保存用Map
-	public Map<Integer, MineStackObj> indexMap;
+    private final Map<Integer, MineStackObj> indexMap;
 
 	public int GBstage;
 	public int GBexp;
@@ -380,14 +380,14 @@ public class PlayerData {
 		//総プレイ時間更新
 		calcPlayTick(player);
 
-		activeskilldata.updateonQuit(player);
+		activeskilldata.updateonQuit();
 		expbar.remove();
 		//クライアント経験値をサーバー保管
 		saveTotalExp();
 	}
 
 	//詫びガチャの通知
-	public void NotifySorryForBug(Player player){
+    private void NotifySorryForBug(Player player){
 		if(numofsorryforbug > 0){
 			player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 1);
 			player.sendMessage(ChatColor.GREEN + "運営チームから"+numofsorryforbug+ "枚の" + ChatColor.GOLD + "ガチャ券" + ChatColor.WHITE + "が届いています！\n木の棒メニューから受け取ってください");
@@ -757,9 +757,9 @@ public class PlayerData {
 				s += ",,,,";
 			}else{
 				//設定されてる場合
-				s += String.valueOf( (int)sub_home[x].getX() ) +",";
-				s += String.valueOf( (int)sub_home[x].getY() ) +",";
-				s += String.valueOf( (int)sub_home[x].getZ() ) +",";
+				s += (int) sub_home[x].getX() +",";
+				s += (int) sub_home[x].getY() +",";
+				s += (int) sub_home[x].getZ() +",";
 				s += sub_home[x].getWorld().getName() +",";
 			}
 		}
@@ -788,8 +788,7 @@ public class PlayerData {
 		byte[] sbyte = null;
 		String str = String.join(",", this.subhome_name);
 		sbyte = str.getBytes(StandardCharsets.UTF_8);
-		String result = new String(Hex.encodeHex(sbyte));
-		return result;
+        return new String(Hex.encodeHex(sbyte));
 	}
 
 	public void build_count_flg_set(byte x){
@@ -1020,9 +1019,9 @@ public class PlayerData {
 		}
 	}
 
-	public void isVotingFairy(Player p){
+	private void isVotingFairy(Player p){
 		//効果は継続しているか
-			if( this.usingVotingFairy && Util.isVotingFairyPeriod(this.VotingFairyStartTime, this.VotingFairyEndTime) == false ){
+			if( this.usingVotingFairy && !Util.isVotingFairyPeriod(this.VotingFairyStartTime, this.VotingFairyEndTime)){
 				this.usingVotingFairy = false ;
 				p.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "妖精は何処かへ行ってしまったようだ...");
 			}

@@ -18,8 +18,8 @@ import com.github.unchama.seichiassist.data.MineStackGachaData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class gachaCommand implements TabExecutor{
-	public SeichiAssist plugin;
-	Sql sql = SeichiAssist.sql;
+	private final SeichiAssist plugin;
+	private final Sql sql = SeichiAssist.sql;
 
 
 	public gachaCommand(SeichiAssist plugin){

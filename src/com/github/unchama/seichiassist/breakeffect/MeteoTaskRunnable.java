@@ -25,36 +25,37 @@ import com.github.unchama.seichiassist.task.ArrowControlTaskRunnable;
 import com.github.unchama.seichiassist.util.BreakUtil;
 
 public class MeteoTaskRunnable extends BukkitRunnable{
-	SeichiAssist plugin = SeichiAssist.plugin;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 	//プレイヤー情報
-	Player player;
+    private final Player player;
 	//プレイヤーデータ
-	PlayerData playerdata;
+    private final PlayerData playerdata;
 	//プレイヤーの位置情報
-	Location ploc;
+    private final Location ploc;
 	//ブロックの位置情報
 	Location bloc;
 	//破壊するブロックの中心位置
-	Location centerbreakloc;
+    private final Location centerbreakloc;
 	//使用するツール
-	ItemStack tool;
+    private final ItemStack tool;
 	//破壊するブロックリスト
-	List<Block> breaklist;
+    private final List<Block> breaklist;
 	//スキルで破壊される相対座標
-	Coordinate start,end;
+    private final Coordinate start;
+    private final Coordinate end;
 	//スキルが発動される中心位置
-	Location droploc;
+    private final Location droploc;
 	//相対座標から得られるスキルの範囲座標
 	Coordinate breaklength;
 	//逐一更新が必要な位置
-	Location effectloc;
+    private Location effectloc;
 	//音の聞こえる距離
-	int soundradius;
+    private final int soundradius;
 	//音距離を設定するフラグ
-	boolean soundflag;
+    private final boolean soundflag;
 	//隕石
-	LargeFireball proj;
+    private LargeFireball proj;
 
 	public MeteoTaskRunnable(Player player,PlayerData playerdata,ItemStack tool,List<Block> breaklist, Coordinate start,
 			Coordinate end, Location droploc) {

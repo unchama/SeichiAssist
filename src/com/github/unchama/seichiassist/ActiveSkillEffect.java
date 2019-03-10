@@ -29,14 +29,14 @@ public enum ActiveSkillEffect {
 
 	;
 
-	SeichiAssist plugin = SeichiAssist.plugin;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 
-	private int num;
-	private String sql_name;
-	private String name;
-	private String explain;
-	private int usepoint;
-	private Material material;
+	private final int num;
+	private final String sql_name;
+	private final String name;
+	private final String explain;
+	private final int usepoint;
+	private final Material material;
 
 	ActiveSkillEffect(int num,String sql_name,String name,String explain,int usepoint,Material material){
 		this.num = num;

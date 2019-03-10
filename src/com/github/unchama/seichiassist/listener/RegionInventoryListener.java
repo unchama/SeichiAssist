@@ -41,9 +41,9 @@ import java.util.*;
  * 2017/09/02
  */
 public class RegionInventoryListener implements Listener {
-    HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-    static WorldGuardPlugin Wg = Util.getWorldGuard();
-    static WorldEditPlugin We = Util.getWorldEdit();
+    private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+    private static final WorldGuardPlugin Wg = Util.getWorldGuard();
+    private static final WorldEditPlugin We = Util.getWorldEdit();
     static Config config = SeichiAssist.config;
 
     /**
@@ -519,7 +519,7 @@ public class RegionInventoryListener implements Listener {
      * @param player 該当プレイヤー
      * @return x,z座標のMap
      */
-    public static Map<String, Double> getNearlyUnitStart(Player player) {
+    private static Map<String, Double> getNearlyUnitStart(Player player) {
         Map<String, Double> result = new HashMap<>();
 
         double player_x = player.getLocation().getBlockX();
@@ -544,7 +544,7 @@ public class RegionInventoryListener implements Listener {
      * @param player 該当プレイヤー
      * @return x,z座標のMap
      */
-    public static Map<String, Double> getNearlyUnitEnd(Player player) {
+    private static Map<String, Double> getNearlyUnitEnd(Player player) {
         Map<String, Double> startCoordinate = getNearlyUnitStart(player);
 
         Map<String, Double> resultMap = new HashMap<>();

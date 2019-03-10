@@ -23,25 +23,22 @@ import com.github.unchama.seichiassist.data.PlayerData;
  */
 public class CheckAlreadyExistPlayerDataTaskRunnable extends BukkitRunnable{
 
-	private SeichiAssist plugin = SeichiAssist.plugin;
-	private Config config = SeichiAssist.config;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final Config config = SeichiAssist.config;
 
-	private Sql sql = SeichiAssist.sql;
-	private Connection con = sql.con;
-	private final String table = SeichiAssist.PLAYERDATA_TABLENAME;
-	private String db = config.getDB();
+	private final Sql sql = SeichiAssist.sql;
+	private final Connection con = sql.con;
+    private final String db = config.getDB();
 
-	private HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 
-	private PlayerData playerData;
-	private String name;
+	private final PlayerData playerData;
+	private final String name;
 	private final UUID uuid;
 	private final String struuid;
-	private String command = "";
-	private Statement stmt = null;
-	private ResultSet rs = null;
+    private Statement stmt = null;
 
-	public CheckAlreadyExistPlayerDataTaskRunnable(PlayerData playerData) {
+    public CheckAlreadyExistPlayerDataTaskRunnable(PlayerData playerData) {
 		this.playerData = playerData;
 		name = playerData.name;
 		uuid = playerData.uuid;
@@ -70,10 +67,11 @@ public class CheckAlreadyExistPlayerDataTaskRunnable extends BukkitRunnable{
 		//uuidがsqlデータ内に存在するか検索
 		//command:
 		//select count(*) from playerdata where uuid = 'struuid'
-		command = "select count(*) as count from " + db + "." + table
-				+ " where uuid = '" + struuid + "'";
+        String table = SeichiAssist.PLAYERDATA_TABLENAME;
+        String command = "select count(*) as count from " + db + "." + table
+                + " where uuid = '" + struuid + "'";
 		try{
-			rs = stmt.executeQuery(command);
+            ResultSet rs = stmt.executeQuery(command);
 			while (rs.next()) {
 				   count = rs.getInt("count");
 				  }

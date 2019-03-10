@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class EventCommand implements TabExecutor {
 
-    SeichiAssist plugin;
+    private final SeichiAssist plugin;
 
     public EventCommand(SeichiAssist plugin){
         this.plugin = plugin;

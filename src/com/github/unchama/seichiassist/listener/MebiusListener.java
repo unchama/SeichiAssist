@@ -38,9 +38,9 @@ import com.github.unchama.seichiassist.util.Util;
 
 public class MebiusListener implements Listener {
 	// Instanceアクセス用
-	public static MebiusListener me;
+	private static MebiusListener me;
 	// Tipsリスト
-	private static List<String> tips = new ArrayList<String>();
+	private static final List<String> tips = new ArrayList<String>();
 	// 経験値瓶をボーナスするLv(EXPBONUS未満)
 	private static final int EXPBONUS = 50;
 	// デバッグフラグ
@@ -391,7 +391,7 @@ public class MebiusListener implements Listener {
 	private static final String DEFNAME = "MEBIUS";
 	// Mebius識別用の先頭Lore
 	private static final List<String> LOREFIRST = Arrays.asList(
-			ChatColor.RESET + "" + ChatColor.GRAY + "経験値瓶 効果2倍" + ChatColor.RED + "(整地レベル" + Integer.toString(EXPBONUS) + "未満限定)", "",
+			ChatColor.RESET + "" + ChatColor.GRAY + "経験値瓶 効果2倍" + ChatColor.RED + "(整地レベル" + EXPBONUS + "未満限定)", "",
 			ChatColor.RESET + "" + ChatColor.AQUA + "初心者をサポートする不思議なヘルメット。", "");
 	private static final List<String> LOREFIRST2 = Arrays.asList(
 			ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.AQUA + "初心者をサポートする不思議なヘルメット。", ChatColor.RESET + "" + ChatColor.AQUA + "整地により成長する。", "");
@@ -559,7 +559,7 @@ public class MebiusListener implements Listener {
 		meta.setDisplayName(name);
 		// Lore生成
 		List<String> lore = new ArrayList<String>(LOREFIRST2);
-		lore.addAll(Arrays.asList(ILHEAD + Integer.toString(level), "", "", "", OWNERHEAD + player.getName().toLowerCase()));
+		lore.addAll(Arrays.asList(ILHEAD + level, "", "", "", OWNERHEAD + player.getName().toLowerCase()));
 		updateTalkDest(lore, level);
 		meta.setLore(lore);
 		// エンチャントを付与する
@@ -597,7 +597,7 @@ public class MebiusListener implements Listener {
 		for (int cnt = 0; cnt < LOREFIRST2.size(); cnt++) {
 			lore.set(cnt, LOREFIRST2.get(cnt));
 		}
-		lore.set(LV, ILHEAD + Integer.toString(level));
+		lore.set(LV, ILHEAD + level);
 		lore.set(TALK, TALKHEAD + "「" + TALKDEST.get(level - 1).get(TALK - TALK) + "」");
 		lore.set(DEST, DESTHEAD + TALKDEST.get(level - 1).get(DEST - TALK));
 	}
@@ -610,15 +610,15 @@ public class MebiusListener implements Listener {
 	// エンチャント用インナークラス
 	private static class Enchant {
 		/** エンチャント実体 */
-		public final Enchantment ench;
+		final Enchantment ench;
 		/** 解放アイテムレベル */
-		public final int open;
+		final int open;
 		/** 最大エンチャントレベル */
-		public final int max;
+		final int max;
 		/** エンチャント名 */
-		public final String name;
+		final String name;
 
-		public Enchant(Enchantment ench, int open, int max, String name) {
+		Enchant(Enchantment ench, int open, int max, String name) {
 			this.ench = ench;
 			this.open = open;
 			this.max = max;

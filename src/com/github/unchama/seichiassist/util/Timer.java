@@ -4,13 +4,13 @@ import com.github.unchama.seichiassist.SeichiAssist;
 
 public class Timer {
     public static final String MILLISECOND = "ms";
-    public static final String SECOND = "s";
-    public static final String NANOSECOND = "ns";
+    private static final String SECOND = "s";
+    private static final String NANOSECOND = "ns";
      
     private long t0, time;
     private String timeUnit;
     
-    private SeichiAssist plugin = SeichiAssist.plugin;
+    private final SeichiAssist plugin = SeichiAssist.plugin;
      
     public Timer() {
         this(NANOSECOND);
@@ -24,7 +24,7 @@ public class Timer {
         return timeUnit;
     }
      
-    public final void setTimeUnit(String timeUnit) {
+    private void setTimeUnit(String timeUnit) {
         this.timeUnit = timeUnit;
     }
      
@@ -36,7 +36,7 @@ public class Timer {
         time = System.nanoTime() - t0;
     }
      
-    public double getTime() {
+    private double getTime() {
         if(timeUnit.equals(NANOSECOND)) return time;
         if(timeUnit.equals(SECOND)) return time / 1000000000.0;
         if(timeUnit.equals(MILLISECOND)) return time / 1000000.0;

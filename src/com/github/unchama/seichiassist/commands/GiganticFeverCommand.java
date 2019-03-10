@@ -12,7 +12,7 @@ import java.util.*;
  * Created by karayuu on 2018/07/25
  */
 public class GiganticFeverCommand implements TabExecutor {
-    private Config config = SeichiAssist.config;
+    private final Config config = SeichiAssist.config;
     private static int end = 0;
     private static boolean isInTime = false;
 

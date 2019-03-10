@@ -54,7 +54,7 @@ public enum MineStackObjs {
 
     ;
 
-    public final MineStackObj obj;
+    private final MineStackObj obj;
     MineStackObjs(MineStackObj obj) {
         this.obj = obj;
     }

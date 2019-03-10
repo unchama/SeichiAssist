@@ -34,8 +34,8 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 public class RegionMenuData {
     static WorldGuardPlugin Wg = Util.getWorldGuard();
     static WorldEditPlugin We = Util.getWorldEdit();
-    static Config config = SeichiAssist.config;
-    static NumberFormat nfNum = NumberFormat.getNumberInstance();
+    private static final Config config = SeichiAssist.config;
+    private static final NumberFormat nfNum = NumberFormat.getNumberInstance();
 
     /**
      * 保護メニューを取得します。
@@ -359,7 +359,7 @@ public class RegionMenuData {
      *
      * @return グリッド式保護テンプレート保存メニューの縦の数
      */
-    public static int getAisleAmount() {
+    private static int getAisleAmount() {
         return config.getTemplateKeepAmount() / 9 + 1;
     }
 
@@ -378,9 +378,8 @@ public class RegionMenuData {
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GREEN + "未設定");
             lore.add(ChatColor.RED + "左クリックで現在の設定を保存");
-            ItemStack menuIcon = Util.getMenuIcon(Material.PAPER, 1,
+            return Util.getMenuIcon(Material.PAPER, 1,
                     ChatColor.RED + "テンプレNo." + (i + 1) , lore, true);
-            return menuIcon;
         } else {
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GREEN + "設定内容");
@@ -390,9 +389,8 @@ public class RegionMenuData {
             lore.add(ChatColor.GRAY + "左方向：" + ChatColor.AQUA + templateMap.get(i).getLeftAmount() + ChatColor.GRAY + "ユニット");
             lore.add(ChatColor.GREEN + "左クリックで設定を読み込み");
             lore.add(ChatColor.RED + "右クリックで現在の設定で上書き");
-            ItemStack menuicon = Util.getMenuIcon(Material.CHEST, 1,
+            return Util.getMenuIcon(Material.CHEST, 1,
                     ChatColor.GREEN + "テンプレNo." + (i + 1) + "(設定済)", lore, true);
-            return menuicon;
         }
     }
 }

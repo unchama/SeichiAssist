@@ -3,7 +3,7 @@ package com.github.unchama.seichiassist.data;
 import com.github.unchama.seichiassist.SeichiAssist;
 
 public class MineStack {
-	private int[] nums;
+	private final int[] nums;
 	/*
 	public int stone;
 	public int dirt;

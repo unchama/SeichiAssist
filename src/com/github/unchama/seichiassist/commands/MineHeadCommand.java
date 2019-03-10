@@ -12,7 +12,7 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.util.Util;
 
 public class MineHeadCommand implements TabExecutor {
-	SeichiAssist plugin;
+	private final SeichiAssist plugin;
 
 	public MineHeadCommand(SeichiAssist _plugin){
 		plugin = _plugin;

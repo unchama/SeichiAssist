@@ -12,11 +12,11 @@ import org.bukkit.entity.*;
  */
 public class SeichiLevelUpEvent extends CustomEvent {
     /** プレイヤー */
-    private Player player;
+    private final Player player;
     /** プレイヤーデータ */
-    private PlayerData playerData;
+    private final PlayerData playerData;
     /** レベルアップ後のレベル */
-    private int levelAfterLevelUp;
+    private final int levelAfterLevelUp;
 
 
     /**

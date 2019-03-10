@@ -16,17 +16,17 @@ public enum ActiveSkill{
 	ARMOR(6,"","","","","","","","","","アサルト・アーマー"),
 	FLUIDCONDENSE(7,"","","","","","","","","","ヴェンダー・ブリザード"),
 ;
-	private int typenum;
-	private String lv1name;
-	private String lv2name;
-	private String lv3name;
-	private String lv4name;
-	private String lv5name;
-	private String lv6name;
-	private String lv7name;
-	private String lv8name;
-	private String lv9name;
-	private String lv10name;
+	private final int typenum;
+	private final String lv1name;
+	private final String lv2name;
+	private final String lv3name;
+	private final String lv4name;
+	private final String lv5name;
+	private final String lv6name;
+	private final String lv7name;
+	private final String lv8name;
+	private final String lv9name;
+	private final String lv10name;
 
 
 	ActiveSkill(int typenum,String lv1name,String lv2name,String lv3name,String lv4name,String lv5name,String lv6name,String lv7name,String lv8name,String lv9name,String lv10name){
@@ -47,62 +47,60 @@ public enum ActiveSkill{
 	public int gettypenum() {
         return this.typenum;
     }
-	public String getLv1Name(){
+	private String getLv1Name(){
 		return this.lv1name;
 	}
-	public String getLv2Name(){
+	private String getLv2Name(){
 		return this.lv2name;
 	}
-	public String getLv3Name(){
+	private String getLv3Name(){
 		return this.lv3name;
 	}
-	public String getLv4Name(){
+	private String getLv4Name(){
 		return this.lv4name;
 	}
-	public String getLv5Name(){
+	private String getLv5Name(){
 		return this.lv5name;
 	}
-	public String getLv6Name(){
+	private String getLv6Name(){
 		return this.lv6name;
 	}
-	public String getLv7Name(){
+	private String getLv7Name(){
 		return this.lv7name;
 	}
-	public String getLv8Name(){
+	private String getLv8Name(){
 		return this.lv8name;
 	}
-	public String getLv9Name(){
+	private String getLv9Name(){
 		return this.lv9name;
 	}
-	public String getLv10Name(){
+	private String getLv10Name(){
 		return this.lv10name;
 	}
 	public int getRepeatTimes(int skilllevel){
 		int repeattimes = 1;
-		switch(this.toString()){
-		case "MULTI":
-			switch(skilllevel){
-			case 4:
-				repeattimes = 3;
-				break;
-			case 5:
-				repeattimes = 7;
-				break;
-			case 6:
-				repeattimes = 3;
-				break;
-			case 7:
-				repeattimes = 5;
-				break;
-			case 8:
-				repeattimes = 3;
-				break;
-			case 9:
-				repeattimes = 7;
-				break;
-			}
-			break;
-		}
+        if ("MULTI".equals(this.toString())) {
+            switch (skilllevel) {
+                case 4:
+                    repeattimes = 3;
+                    break;
+                case 5:
+                    repeattimes = 7;
+                    break;
+                case 6:
+                    repeattimes = 3;
+                    break;
+                case 7:
+                    repeattimes = 5;
+                    break;
+                case 8:
+                    repeattimes = 3;
+                    break;
+                case 9:
+                    repeattimes = 7;
+                    break;
+            }
+        }
 		return repeattimes;
 	}
 	public Coordinate getBreakLength(int skilllevel){
@@ -606,30 +604,28 @@ public enum ActiveSkill{
 
 	public PotionType getPotionType(int skilllevel) {
 		PotionType potiontype = PotionType.WATER;
-		switch(this.toString()){
-		case "ARROW":
-			switch(skilllevel){
-			case 4:
-				potiontype = PotionType.REGEN;
-				break;
-			case 5:
-				potiontype = PotionType.FIRE_RESISTANCE;
-				break;
-			case 6:
-				potiontype = PotionType.INSTANT_HEAL;
-				break;
-			case 7:
-				potiontype = PotionType.NIGHT_VISION;
-				break;
-			case 8:
-				potiontype = PotionType.SPEED;
-				break;
-			case 9:
-				potiontype = PotionType.INSTANT_DAMAGE;
-				break;
-			}
-			break;
-		}
+        if ("ARROW".equals(this.toString())) {
+            switch (skilllevel) {
+                case 4:
+                    potiontype = PotionType.REGEN;
+                    break;
+                case 5:
+                    potiontype = PotionType.FIRE_RESISTANCE;
+                    break;
+                case 6:
+                    potiontype = PotionType.INSTANT_HEAL;
+                    break;
+                case 7:
+                    potiontype = PotionType.NIGHT_VISION;
+                    break;
+                case 8:
+                    potiontype = PotionType.SPEED;
+                    break;
+                case 9:
+                    potiontype = PotionType.INSTANT_DAMAGE;
+                    break;
+            }
+        }
 		return potiontype;
 	}
 

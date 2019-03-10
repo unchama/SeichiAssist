@@ -11,19 +11,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
 
-public class PlayerDataUpdateOnJoinRunnable extends BukkitRunnable{
+class PlayerDataUpdateOnJoinRunnable extends BukkitRunnable{
 
 	//private SeichiAssist plugin = SeichiAssist.plugin;
-	private HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 	//private Sql sql = SeichiAssist.plugin.sql;
 
 	final String table = SeichiAssist.PLAYERDATA_TABLENAME;
 
-	String name;
-	Player p;
-	final UUID uuid;
-	final String struuid;
-	int i;
+	private final String name;
+	private final Player p;
+	private final UUID uuid;
+	private final String struuid;
+	private int i;
 
 	public PlayerDataUpdateOnJoinRunnable(PlayerData playerData) {
 		name = playerData.name;

@@ -21,8 +21,8 @@ import com.github.unchama.seichiassist.util.Util;
 
 public class PlayerPickupItemListener implements Listener {
 	SeichiAssist plugin = SeichiAssist.plugin;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	private Config config = SeichiAssist.config;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Config config = SeichiAssist.config;
 	@EventHandler
 	public void MineStackEvent(PlayerPickupItemEvent event){
 		//実行したプレイヤーを取得
@@ -132,7 +132,7 @@ public class PlayerPickupItemListener implements Listener {
 						playerdata.minestack.addNum(i, amount);
 						break;
 					}
-				} else if(SeichiAssist.minestacklist.get(i).getNameloreflag()==true && itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()){
+				} else if(SeichiAssist.minestacklist.get(i).getNameloreflag() && itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()){
 					//名前・説明文付き
 					ItemMeta meta = itemstack.getItemMeta();
 					/*

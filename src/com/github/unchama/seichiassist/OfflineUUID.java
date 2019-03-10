@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.UUID;
           return OfflineUUID.postContent1 + name + OfflineUUID.postContent2;
        }
 
-       static Map<String, UUID> UUIDs;
+       private static Map<String, UUID> UUIDs;
        public static UUID getUUID(String player, boolean forceReload) throws IOException, IllegalArgumentException {
           if(!forceReload && OfflineUUID.UUIDs != null && OfflineUUID.UUIDs.containsKey(player)){
         	  //System.out.println("debug!");
@@ -91,17 +92,16 @@ import java.util.UUID;
           huc.setReadTimeout(5000);
           huc.connect();
 
-          PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(huc.getOutputStream(),"utf-8")));
+          PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(huc.getOutputStream(), StandardCharsets.UTF_8)));
           pw.print(getPostContent(name));
           pw.close();
 
-          BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "utf-8"));
+          BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), StandardCharsets.UTF_8));
           String line = null;
           while ((line = br.readLine()) != null) {
              re += line + "\n";
           }
-          re = re;
-          br.close();
+           br.close();
           huc.disconnect();
           return re;
        }

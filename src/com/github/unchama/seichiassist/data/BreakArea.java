@@ -11,23 +11,24 @@ import com.github.unchama.seichiassist.util.BreakUtil;
 
 public class BreakArea {
 	//スキルタイプ番号
-	int type;
+    private final int type;
 	//スキルレベル
-	int level;
+    private final int level;
 	//フラグ
-	int mineflagnum;
+    private final int mineflagnum;
 	//南向きを基準として破壊の範囲座標
-	Coordinate breaklength;
+    private final Coordinate breaklength;
 	//破壊回数
-	int breaknum;
+    private final int breaknum;
 	//向いている方角
-	String dir;
+    private String dir;
 	//破壊範囲を示す相対座標リスト
-	List<Coordinate> startlist,endlist;
+    private final List<Coordinate> startlist;
+    private final List<Coordinate> endlist;
 	//変数として利用する相対座標
 	private Coordinate start,end;
 	//アサルトスキルの時true
-	boolean assaultflag;
+    private final boolean assaultflag;
 
 
 	public BreakArea(Player player,int type, int skilllevel,int mineflagnum,boolean assaultflag) {
@@ -69,17 +70,17 @@ public class BreakArea {
 		//アサルトスキルの時
 		if(assaultflag){
 			if(type == 6 && level == 10){
-				shift(0, (breaklength.y-1)/2 - 1,0);
+				shift((breaklength.y-1)/2 - 1,0);
 			}
 		}
 		//上向きまたは下向きの時
 		else if(dir.equals("U") || dir.equals("D")){
 			if(!assaultflag && level < 3){}
-			else{shift(0, (breaklength.y-1)/2, 0);}
+			else{shift((breaklength.y-1)/2, 0);}
 		}
 		//それ以外の範囲
 		else{
-			shift(0, (breaklength.y-1)/2 - 1, (breaklength.z-1)/2);
+			shift((breaklength.y-1)/2 - 1, (breaklength.z-1)/2);
 
 		}
 
@@ -87,7 +88,7 @@ public class BreakArea {
 			end.add(0, 1, 0);
 		}
 		if(type == ActiveSkill.BREAK.gettypenum() && level < 3 && mineflagnum == 1){
-			shift(0,1,0);
+			shift(1,0);
 		}
 
 		//スタートリストに追加
@@ -102,12 +103,12 @@ public class BreakArea {
 			case "E":
 			case "S":
 			case "W":
-				shift(0, 0, breaklength.z);
+				shift(0, breaklength.z);
 				break;
 			case "U":
 			case "D":
 				if(!assaultflag && level < 3){}
-				else{shift(0, breaklength.y, 0);}
+				else{shift(breaklength.y, 0);}
 				break;
 
 			}
@@ -131,27 +132,27 @@ public class BreakArea {
 		case "U":
 			break;
 		case "D":
-			if(!assaultflag)multiply_Y(-1);
+			if(!assaultflag)multiply_Y();
 			break;
 		}
 	}
-	private void multiply_Y(int i) {
+	private void multiply_Y() {
 		for(int count = 0;count < breaknum ; count++){
 			Coordinate start = startlist.get(count);
 			Coordinate end = endlist.get(count);
 			Coordinate tmpstart = new Coordinate(startlist.get(count));
-			if(i >=0){
-				start.setXYZ(start.x,start.y * i,start.z);
-				end.setXYZ(end.x,end.y * i,end.z);
+			if(-1 >=0){
+				start.setXYZ(start.x,start.y * -1,start.z);
+				end.setXYZ(end.x,end.y * -1,end.z);
 			}else{
-				start.setXYZ(start.x,end.y * i,start.z);
-				end.setXYZ(end.x,tmpstart.y * i,end.z);
+				start.setXYZ(start.x,end.y * -1,start.z);
+				end.setXYZ(end.x,tmpstart.y * -1,end.z);
 			}
 		}
 	}
-	private void shift(int x, int y, int z) {
-		start.add(x,y,z);
-		end.add(x,y,z);
+	private void shift(int y, int z) {
+		start.add(0,y,z);
+		end.add(0,y,z);
 	}
 	private void rotateXZ(int d) {
 		for(int count = 0;count < breaknum ; count++){

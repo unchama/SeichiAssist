@@ -17,22 +17,22 @@ import javax.annotation.Nonnull;
  *
  * Created by karayuu on 2019/03/02
  */
-public abstract class ArrowEffectTaskRunnable<E extends Projectile> extends BukkitRunnable {
+abstract class ArrowEffectTaskRunnable<E extends Projectile> extends BukkitRunnable {
     /** スキル発動時に鳴らす音 */
     @Nonnull
-    private Sound sound;
+    private final Sound sound;
     /** スキルを発動したプレイヤー */
     @Nonnull
-    private Player player;
+    private final Player player;
     /** 速度(相対的な) */
-    private double velocity;
+    private final double velocity;
     /** 経過時間(20tick = 1s) */
     private long tick = 0;
     /** 矢の代わりとなるエンティティ */
-    protected E entity;
+    final E entity;
     /** プレイヤーの位置 */
     @Nonnull
-    private Location location;
+    private final Location location;
 
     /**
      * コンストラクタ.

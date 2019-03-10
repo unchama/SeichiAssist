@@ -151,8 +151,7 @@ public class VotingFairyListener implements Listener {
 					if (playerdata.toggleGiveApple == 2 && (mana.getMana()/mana.getMax() < 0.75)) n /= 2;
 					p.sendMessage(ChatColor.RESET + "" + ChatColor.YELLOW + "" + ChatColor.BOLD + "MineStackにがちゃりんごがないようです。。。");
 				}else {
-					double M = m,L = l;
-					n = ((L/M) <= 0.5 ? n * 0.5 : (n * L/M));
+                    n = (((double) l / (double) m) <= 0.5 ? n * 0.5 : (n * (double) l / (double) m));
 				}
 				m = l;
 			}

@@ -18,11 +18,11 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class LimitedLoginEvent {
-	private static Config config = SeichiAssist.config;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	PlayerData playerdata;
-	String lastcheckdate ;
+	private static final Config config = SeichiAssist.config;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private Player player;
+	private PlayerData playerdata;
+	private String lastcheckdate ;
 
 //    private JavaPlugin plugin;
 

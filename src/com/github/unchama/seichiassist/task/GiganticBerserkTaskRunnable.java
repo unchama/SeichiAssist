@@ -15,9 +15,9 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class GiganticBerserkTaskRunnable {
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	PlayerData playerdata;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private Player player;
+	private PlayerData playerdata;
 
 	public void PlayerKillEnemy(Player p){
 		player = p;
@@ -98,7 +98,7 @@ public class GiganticBerserkTaskRunnable {
 		else return 0.10;
 	}
 
-	public double getRecoveryValue(PlayerData playerdata){
+	private double getRecoveryValue(PlayerData playerdata){
 		double i,l;
 		Random rnd = new Random();
 

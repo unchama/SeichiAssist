@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.github.unchama.seichiassist.SeichiAssist;
 
 public class EntityRemoveTaskRunnable extends BukkitRunnable{
-	Entity e;
+	private final Entity e;
 
 	public EntityRemoveTaskRunnable(Entity e) {
 		this.e = e;

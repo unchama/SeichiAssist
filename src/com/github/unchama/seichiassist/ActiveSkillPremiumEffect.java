@@ -23,29 +23,29 @@ import com.github.unchama.seichiassist.data.PlayerData;
 
 public enum ActiveSkillPremiumEffect {
 
-	MAGIC(1,"ef_magic",ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "マジック","鶏が出る手品",10,Material.RED_ROSE),
+	MAGIC(ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "マジック"),
 /*	BLADE(2,"ef_blade",ChatColor.GOLD + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ブレイド","切り刻む",15,Material.IRON_SWORD),
 	VLADMIA(3,"ef_vladmia",ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ブラッドミア","吸血する",20,Material.REDSTONE),
 	TIAMAT(4,"ef_tiamat",ChatColor.BLUE + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ティアマト","彗星を落とす",25,Material.NETHER_STAR),
 */
 	;
 
-	SeichiAssist plugin = SeichiAssist.plugin;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
 
-	private int num;
-	private String sql_name;
-	private String name;
-	private String explain;
-	private int usepoint;
-	private Material material;
+	private final int num;
+	private final String sql_name;
+	private final String name;
+	private final String explain;
+	private final int usepoint;
+	private final Material material;
 
-	ActiveSkillPremiumEffect(int num,String sql_name,String name,String explain,int usepoint,Material material){
-		this.num = num;
-		this.sql_name = sql_name;
+	ActiveSkillPremiumEffect(String name){
+		this.num = 1;
+		this.sql_name = "ef_magic";
 		this.name = name;
-		this.explain = explain;
-		this.usepoint = usepoint;
-		this.material = material;
+		this.explain = "鶏が出る手品";
+		this.usepoint = 10;
+		this.material = Material.RED_ROSE;
 	}
 
 	public int getNum(){

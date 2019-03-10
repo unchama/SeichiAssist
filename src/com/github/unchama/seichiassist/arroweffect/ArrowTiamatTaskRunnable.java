@@ -17,14 +17,14 @@ import com.github.unchama.seichiassist.data.PlayerData;
 
 @Deprecated
 public class ArrowTiamatTaskRunnable extends BukkitRunnable{
-	SeichiAssist plugin = SeichiAssist.plugin;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	Location ploc;
-	UUID uuid;
-	PlayerData playerdata;
-	long tick;
-	SmallFireball proj;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Player player;
+	private final Location ploc;
+	private final UUID uuid;
+	private final PlayerData playerdata;
+	private final long tick;
+	private final SmallFireball proj;
 
 	public ArrowTiamatTaskRunnable(Player player) {
 		this.tick = 0;

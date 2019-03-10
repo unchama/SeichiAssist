@@ -14,7 +14,7 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
 
 public class BungeeReceiver implements PluginMessageListener {
-	private SeichiAssist plugin;
+	private final SeichiAssist plugin;
 
 	public BungeeReceiver(SeichiAssist plugin) {
 		this.plugin = plugin;
@@ -27,11 +27,9 @@ public class BungeeReceiver implements PluginMessageListener {
 		DataInputStream in = new DataInputStream(stream);
 		try {
 			String subchannel = in.readUTF();
-			switch (subchannel) {
-			case "GetLocation":
-				getLocation(in.readUTF(), in.readUTF(), in.readUTF());
-				break;
-			}
+            if ("GetLocation".equals(subchannel)) {
+                getLocation(in.readUTF(), in.readUTF(), in.readUTF());
+            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,8 +48,8 @@ public class BungeeReceiver implements PluginMessageListener {
 			out.writeUTF("GetLocation");
 			out.writeUTF(wanter);
 			// プレイヤーの座標を返却
-			out.writeUTF(p.getName() + ": 整地Lv" + Integer.toString(pd.level) + " (総整地量: " + String.format("%,d", pd.totalbreaknum) + ")");
-			out.writeUTF("Server: " + servername + ", " + "World: " + p.getWorld().getName() + " (" + Integer.toString(p.getLocation().getBlockX()) + ", " + Integer.toString(p.getLocation().getBlockY()) + ", " + Integer.toString(p.getLocation().getBlockZ()) + ")");
+			out.writeUTF(p.getName() + ": 整地Lv" + pd.level + " (総整地量: " + String.format("%,d", pd.totalbreaknum) + ")");
+			out.writeUTF("Server: " + servername + ", " + "World: " + p.getWorld().getName() + " (" + p.getLocation().getBlockX() + ", " + p.getLocation().getBlockY() + ", " + p.getLocation().getBlockZ() + ")");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

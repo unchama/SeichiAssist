@@ -41,7 +41,7 @@ public class shareinvCommand implements TabExecutor {
 		return true;
 	}
 
-	public void shareInv(Player player) {
+	private void shareInv(Player player) {
 		PlayerData playerdata = SeichiAssist.playermap.get(player.getUniqueId());
 		Sql sql = SeichiAssist.sql;
 

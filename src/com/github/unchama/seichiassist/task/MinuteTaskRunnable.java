@@ -21,9 +21,9 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class MinuteTaskRunnable extends BukkitRunnable{
-	private SeichiAssist plugin = SeichiAssist.plugin;
-	private HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
-	private Config config = SeichiAssist.config;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
+	private final Config config = SeichiAssist.config;
 	Sql sql = SeichiAssist.sql;
 	public static int time = 0;
 

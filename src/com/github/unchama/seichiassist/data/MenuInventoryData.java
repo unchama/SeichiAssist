@@ -36,9 +36,9 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 
 public class MenuInventoryData {
-	private static HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
-	private static Sql sql = SeichiAssist.sql;
-	private static WorldGuardPlugin Wg = Util.getWorldGuard();
+	private static final HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
+	private static final Sql sql = SeichiAssist.sql;
+	private static final WorldGuardPlugin Wg = Util.getWorldGuard();
 
 	//二つ名組合せシステム用
 	private static boolean nextpageflag1 = false ;
@@ -850,7 +850,7 @@ public class MenuInventoryData {
 	}
 
 	//投票特典受け取りボタン
-	public static List<String> VoteGetButtonLore(PlayerData playerdata){
+	private static List<String> VoteGetButtonLore(PlayerData playerdata){
 		List<String> lore = new ArrayList<String>();
 		lore.addAll(Arrays.asList(ChatColor.RESET + "" +  ChatColor.GRAY + "投票特典を受け取るには"
 				, ChatColor.RESET + "" +  ChatColor.GRAY + "投票ページで投票した後"
@@ -1179,7 +1179,7 @@ public class MenuInventoryData {
 		return inv;
 	}
 	//MineStackボタン作成 ItemStack版名前付き
-	public static Inventory setMineStackButton(Inventory inv,int minestack,ItemStack itemstack,int level,int set, String name){
+	private static void setMineStackButton(Inventory inv, int minestack, ItemStack itemstack, int level, int set, String name){
 		itemstack.setAmount(1);
 		ItemMeta itemmeta = itemstack.getItemMeta();
 		if(name!=null){
@@ -1194,8 +1194,7 @@ public class MenuInventoryData {
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
 		inv.setItem(set,itemstack);
-		return inv;
-	}
+    }
 	// 全体通知音消音トグルボタン
 	public static ItemMeta dispWinSoundToggleMeta(PlayerData playerdata,ItemMeta itemmeta){
 		List<String> lore = new ArrayList<String>();
@@ -1303,7 +1302,7 @@ public class MenuInventoryData {
 	}
 
 	// GiganticBerserk Meta
-	public static ItemMeta GiganticBerserkMeta(PlayerData playerdata, ItemMeta itemmeta){
+	private static ItemMeta GiganticBerserkMeta(PlayerData playerdata, ItemMeta itemmeta){
 		List<String> lore = new ArrayList<String>();
 
 		int n = (playerdata.GBstage * 10) + playerdata.GBlevel;
@@ -1341,7 +1340,7 @@ public class MenuInventoryData {
 		return itemmeta;
 	}
 
-	public static ItemMeta ChestBreakToggleMeta(PlayerData playerdata, ItemMeta itemmeta){
+	private static ItemMeta ChestBreakToggleMeta(PlayerData playerdata, ItemMeta itemmeta){
 		List<String> lore = new ArrayList<String>();
 
 		lore.add(ChatColor.GREEN + "スキルでチェストを破壊するスキル");
@@ -7249,7 +7248,7 @@ public class MenuInventoryData {
 				if(rankdata.p_apple<1){ //数0
 					break;
 				}
-				lores.add(ChatColor.GRAY + "たくさんくれたﾆﾝｹﾞﾝ第" + Integer.toString(count+1) + "位！" );
+				lores.add(ChatColor.GRAY + "たくさんくれたﾆﾝｹﾞﾝ第" + (count + 1) + "位！" );
 				lores.add(ChatColor.GRAY + "なまえ：" + rankdata.name + " りんご：" + rankdata.p_apple + "個");
 			}
 
@@ -7269,7 +7268,7 @@ public class MenuInventoryData {
 		return inventory;
 
 	}
-	public static ItemMeta VFSoundToggleMeta(boolean bln) {
+	private static ItemMeta VFSoundToggleMeta(boolean bln) {
 		ItemMeta itemmeta = Bukkit.getItemFactory().getItemMeta(Material.JUKEBOX);
 		itemmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "マナ妖精の音トグル");
 		if(bln) {
@@ -7290,7 +7289,7 @@ public class MenuInventoryData {
 
 		return itemmeta;
 	}
-	public static ItemMeta VFPromiseMeta(PlayerData playerdata){
+	private static ItemMeta VFPromiseMeta(PlayerData playerdata){
 
 		ItemMeta itemmeta = Bukkit.getItemFactory().getItemMeta(Material.PAPER);
 		itemmeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "妖精とのお約束");

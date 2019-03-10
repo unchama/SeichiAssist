@@ -18,8 +18,8 @@ import com.github.unchama.seichiassist.util.Util;
 import net.md_5.bungee.api.ChatColor;
 
 public class seichiCommand implements TabExecutor {
-	SeichiAssist plugin;
-	Sql sql = SeichiAssist.sql;
+	private final SeichiAssist plugin;
+	private final Sql sql = SeichiAssist.sql;
 
 	public seichiCommand(SeichiAssist _plugin){
 		plugin = _plugin;

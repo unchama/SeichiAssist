@@ -14,9 +14,9 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class PlayerDataBackupTaskRunnable extends BukkitRunnable{
-	private SeichiAssist plugin = SeichiAssist.plugin;
-	private Sql sql = SeichiAssist.sql;
-	private HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final Sql sql = SeichiAssist.sql;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 
 	public PlayerDataBackupTaskRunnable(){
 

@@ -12,11 +12,11 @@ import javax.annotation.*;
 public class Sound {
     /** 鳴らす音の種類 */
     @Nonnull
-    private org.bukkit.Sound sound;
+    private final org.bukkit.Sound sound;
     /** 音の音量(標準は1) */
-    private float volume;
+    private final float volume;
     /** 音の音程(標準は1) */
-    private float interval;
+    private final float interval;
 
     /**
      * BukkitのSoundクラスのラッパーです.

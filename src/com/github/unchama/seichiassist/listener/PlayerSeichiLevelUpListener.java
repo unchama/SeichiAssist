@@ -11,7 +11,7 @@ import org.bukkit.event.*;
 /**
  * Created by karayuu on 2018/04/19
  */
-public class PlayerSeichiLevelUpListener {
+class PlayerSeichiLevelUpListener {
     @EventHandler
     public void onPlayerLevelUp(SeichiLevelUpEvent event) {
         Player p = event.getPlayer();

@@ -97,13 +97,13 @@ public class SeichiAssist extends JavaPlugin{
 	static final int VOTE_FAIRYTIME_DATASIZE = 17; //DB上での妖精を召喚した時間のデータサイズ　年4+月2+日2+時間2+分2+区切り文字1*5
 
 	//起動するタスクリスト
-	private List<BukkitTask> tasklist = new ArrayList<>();
+	private final List<BukkitTask> tasklist = new ArrayList<>();
 
 	//Gachadataに依存するデータリスト
 	public static final List<GachaData> gachadatalist = new ArrayList<>();
 
 	//(minestackに格納する)Gachadataに依存するデータリスト
-	public static List<MineStackGachaData> msgachadatalist = new ArrayList<>();
+	public static final List<MineStackGachaData> msgachadatalist = new ArrayList<>();
 
 	//Playerdataに依存するデータリスト
 	public static final HashMap<UUID,PlayerData> playermap = new HashMap<>();
@@ -767,7 +767,7 @@ public class SeichiAssist extends JavaPlugin{
 
 	));
 
-	private static List<MineStackObj> minestacklistgacha =  new ArrayList<MineStackObj>(Arrays.asList(
+	private static final List<MineStackObj> minestacklistgacha =  new ArrayList<MineStackObj>(Arrays.asList(
 
 			//以下ガチャ系アイテム
 			new MineStackGachaObj("gachaimo",Util.getGachaimoName(),1,Material.GOLDEN_APPLE,0,Util.getGachaimoLore())

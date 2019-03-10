@@ -9,11 +9,11 @@ import com.github.unchama.seichiassist.SeichiAssist;
 
 public class ArrowControlTaskRunnable extends BukkitRunnable{
 
-	Projectile proj;
-	Location standard;
-	Location projloc;
-	long tick;
-	double speed;
+	private final Projectile proj;
+	private final Location standard;
+	private Location projloc;
+	private long tick;
+	private final double speed;
 	public ArrowControlTaskRunnable(Projectile proj, Location standard) {
 		this.proj = proj;
 		this.standard = standard;

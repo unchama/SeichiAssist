@@ -16,7 +16,7 @@ import com.github.unchama.seichiassist.listener.MebiusListener;
 // 定型Tipsを喋ってsilence true or 喋らずsilence false
 // PlayerDataに実体
 public class MebiusTaskRunnable extends BukkitRunnable {
-	private Player p;
+	private final Player p;
 	private boolean silence = false;
 
 	// プレイヤー接続時に呼び出される

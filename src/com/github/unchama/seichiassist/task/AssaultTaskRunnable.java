@@ -26,31 +26,35 @@ import com.github.unchama.seichiassist.util.BreakUtil;
 import com.github.unchama.seichiassist.util.Util;
 
 public class AssaultTaskRunnable extends BukkitRunnable{
-	SeichiAssist plugin = SeichiAssist.plugin;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	UUID uuid;
-	PlayerData playerdata;
-	int level;
-	int type;
+	private final SeichiAssist plugin = SeichiAssist.plugin;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Player player;
+	private final UUID uuid;
+	private final PlayerData playerdata;
+	private int level;
+	private int type;
 	int playerlocy;
-	Mana mana ;
-	PlayerInventory inventory;
-	ItemStack tool;
+	private Mana mana ;
+	private PlayerInventory inventory;
+	private ItemStack tool;
 	//一回の破壊の範囲
-	Coordinate breaklength;
+    private Coordinate breaklength;
 	//１回の全て破壊したときのブロック数
-	int ifallbreaknum;
+    private int ifallbreaknum;
 	//破壊エリアデータ
-	BreakArea assaultarea;
+    private BreakArea assaultarea;
 	//放置判定用位置データ
-	Location lastloc;
+    private Location lastloc;
 	//放置判定用int
-	int idletime;
+    private int idletime;
 
-	boolean errorflag = false;
+	private boolean errorflag = false;
 
-	boolean waterflag = false,lavaflag = false,fluidflag = false,breakflag = false,condensflag = false;
+	private boolean waterflag = false;
+    private boolean lavaflag = false;
+    private boolean fluidflag = false;
+    private boolean breakflag = false;
+    boolean condensflag = false;
 
 	/*
 	List<Material> material2list = new ArrayList<Material>(Arrays.asList(
@@ -292,7 +296,7 @@ public class AssaultTaskRunnable extends BukkitRunnable{
 		}
 
 		//実際に経験値を減らせるか判定
-		if(!mana.hasMana(useMana)){
+		if(mana.hasMana(useMana)){
 			//デバッグ用
 			if(SeichiAssist.DEBUG){
 				player.sendMessage(ChatColor.RED + "アクティブスキル発動に必要なマナが足りません");

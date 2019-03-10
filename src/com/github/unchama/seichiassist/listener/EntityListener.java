@@ -40,7 +40,7 @@ import com.github.unchama.seichiassist.util.Util;
 
 public class EntityListener implements Listener {
 	SeichiAssist plugin = SeichiAssist.plugin;
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
 
 	@EventHandler
 	public void onPlayerActiveSkillEvent(ProjectileHitEvent event){
@@ -53,8 +53,7 @@ public class EntityListener implements Listener {
 		if(!e.hasMetadata("ArrowSkill")) {
 			return;
 		}
-		Projectile proj = e;
-    	projsource = proj.getShooter();
+        projsource = e.getShooter();
 		if(!(projsource instanceof Player)){
 			return;
 		}
@@ -73,7 +72,7 @@ public class EntityListener implements Listener {
 
 		//壊されるブロックを取得
 		Block block = null;
-		block = player.getWorld().getBlockAt(proj.getLocation().add(proj.getVelocity().normalize()));
+		block = player.getWorld().getBlockAt(e.getLocation().add(e.getVelocity().normalize()));
 
 
 		//他人の保護がかかっている場合は処理を終了
@@ -152,10 +151,10 @@ public class EntityListener implements Listener {
 			return;
 		}
 
-		runArrowSkillofHitBlock(player,proj, block, tool);
+		runArrowSkillofHitBlock(player, e, block, tool);
 
-		SeichiAssist.entitylist.remove(proj);
-		proj.remove();
+		SeichiAssist.entitylist.remove(e);
+		e.remove();
 	}
 
 
@@ -273,7 +272,7 @@ public class EntityListener implements Listener {
 		}
 
 		//実際に経験値を減らせるか判定
-		if(!mana.hasMana(useMana)){
+		if(mana.hasMana(useMana)){
 			//デバッグ用
 			if(SeichiAssist.DEBUG){
 				player.sendMessage(ChatColor.RED + "アクティブスキル発動に必要なマナが足りません");

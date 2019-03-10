@@ -19,6 +19,6 @@ public final class MineStackGachaObj extends MineStackObj {
     }
 
     public MineStackGachaObj(String objname, String japanesename, int level, Material material, int durability, int gachatype, Enchantment needed_enchantment) {
-        super(objname, japanesename, level, material, durability, true, gachatype, 5, needed_enchantment);
+        super(objname, japanesename, level, material, durability, gachatype, needed_enchantment);
     }
 }

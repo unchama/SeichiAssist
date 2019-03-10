@@ -11,17 +11,17 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
 
 public class CoolDownTaskRunnable  extends BukkitRunnable{
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	private Player player;
-	UUID uuid;
-	PlayerData playerdata;
-	boolean voteflag = false;
-    public static final String VOTE = "VOTE";
-	boolean soundflag = false;
-	public static final String SOUND = "SOUND";
-	boolean gachaflag = false;
-	public static final String GACHA = "GACHA";
-	boolean shareinvflag = false;
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Player player;
+	private final UUID uuid;
+	private final PlayerData playerdata;
+	private boolean voteflag = false;
+    private static final String VOTE = "VOTE";
+	private boolean soundflag = false;
+	private static final String SOUND = "SOUND";
+	private boolean gachaflag = false;
+	private static final String GACHA = "GACHA";
+	private boolean shareinvflag = false;
 	public static final String SHAREINV = "SHAREINV";
 
 	//newインスタンスが立ち上がる際に変数を初期化したり代入したりする処理

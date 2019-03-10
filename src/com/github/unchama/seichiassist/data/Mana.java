@@ -18,13 +18,13 @@ import com.github.unchama.seichiassist.util.Util;
 
 public class Mana {
 	//マナの値
-	double m;
+    private double m;
 	//マックスの値
 	private double max;
 	//バークラス
-	BossBar manabar;
+    private BossBar manabar;
 	//読み込まれているかどうかのフラグ
-	boolean loadflag;
+    private boolean loadflag;
 
 	//引数なしのコンストラクタ
 	public Mana() {
@@ -80,7 +80,7 @@ public class Mana {
 		displayMana(player,level);
 	}
 	public boolean hasMana(double h){
-        return compare(m, h) >= 0;
+        return compare(m, h) < 0;
     }
 
 	private int compare(double x, double y) {
@@ -197,7 +197,7 @@ public class Mana {
 	public double getMax() {
 		return max;
 	}
-	public void setMax(double max) {
+	private void setMax(double max) {
 		this.max = max;
 	}
 }

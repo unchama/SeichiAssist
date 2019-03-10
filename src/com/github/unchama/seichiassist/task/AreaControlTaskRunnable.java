@@ -12,27 +12,27 @@ import com.github.unchama.seichiassist.data.BreakArea;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.BreakUtil;
 
-public class AreaControlTaskRunnable extends BukkitRunnable{
-	HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
-	Player player;
-	PlayerData playerdata;
+class AreaControlTaskRunnable extends BukkitRunnable{
+	private final HashMap<UUID,PlayerData> playermap = SeichiAssist.playermap;
+	private final Player player;
+	private final PlayerData playerdata;
 	//プレイヤーがターゲットしているブロックを取得
-	Block targetblock;
+    private Block targetblock;
 	//プレイヤーの足のy座標を取得
-	int playerlocy;
+    private int playerlocy;
 	//プレイヤーの向いている方角を取得
-	String dir;
+    private String dir;
 
 	//プレイヤーの破壊する範囲を取得
-	BreakArea area;
+    private final BreakArea area;
 	//アサルトスキルかどうかのフラグ
-	boolean assaultflag;
+    private final boolean assaultflag;
 	//ビジュアライズフラグ
 	boolean visualizeflag;
 	//スキル発動中かどうかのフラグ
-	int skillflagnum;
+    private final int skillflagnum;
 	//tick数の確認
-	int tick;
+    private int tick;
 
 
 	public AreaControlTaskRunnable(Player player, BreakArea area,boolean assaultflag) {

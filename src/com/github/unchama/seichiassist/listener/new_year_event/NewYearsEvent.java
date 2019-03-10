@@ -20,9 +20,9 @@ import java.util.*;
  * 正月イベント関連クラス
  */
 public class NewYearsEvent implements Listener {
-    private static SeichiAssist plugin = SeichiAssist.plugin;
-    private static Config config = SeichiAssist.config;
-    private static Map<UUID, PlayerData> playerMap = SeichiAssist.playermap;
+    private static final SeichiAssist plugin = SeichiAssist.plugin;
+    private static final Config config = SeichiAssist.config;
+    private static final Map<UUID, PlayerData> playerMap = SeichiAssist.playermap;
 
     /**
      * 正月イベント準備メソッド(コンストラクタ)
@@ -98,7 +98,7 @@ public class NewYearsEvent implements Listener {
      * @param endDay 終了日
      * @return startDayからendDayの範囲内にあるか(startDay, endDayを含む)
      */
-    public static boolean isHeld(Date nowDay, Date startDay, Date endDay) {
+    private static boolean isHeld(Date nowDay, Date startDay, Date endDay) {
         /*
         //a.compareTo(b) -> aとb同じ(0) aが後(>0) aが前(<0)
         //nowDayが後の時>0

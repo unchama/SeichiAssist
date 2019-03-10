@@ -19,17 +19,15 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.BreakUtil;
 
 public class MultiBreakTaskRunnable extends BukkitRunnable{
-	private HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
-	private Player player;
-	private Location droploc;
-	private ItemStack tool;
-	private List<List<Block>> multibreaklist;
-	private List<List<Block>> multilavalist;
-	private List<Coordinate> startlist;
-	private List<Coordinate> endlist;
-	private int breaknum;
-	private UUID uuid;
-	private PlayerData playerdata;
+    private final Player player;
+	private final Location droploc;
+	private final ItemStack tool;
+	private final List<List<Block>> multibreaklist;
+	private final List<List<Block>> multilavalist;
+	private final List<Coordinate> startlist;
+	private final List<Coordinate> endlist;
+	private final int breaknum;
+    private final PlayerData playerdata;
 	private int count;
 
 	public MultiBreakTaskRunnable(Player player,Block centerblock,ItemStack tool,
@@ -46,9 +44,10 @@ public class MultiBreakTaskRunnable extends BukkitRunnable{
 		this.count = 0;
 		//this.key = key;
 		//UUIDを取得
-		uuid = player.getUniqueId();
+        UUID uuid = player.getUniqueId();
 		//playerdataを取得
-		playerdata = playermap.get(uuid);
+        HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
+        playerdata = playermap.get(uuid);
 	}
 
 	@Override

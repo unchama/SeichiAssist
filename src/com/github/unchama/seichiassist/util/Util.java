@@ -44,7 +44,7 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class Util {
-	static private FireworkEffect.Type[] types = { FireworkEffect.Type.BALL,
+	static private final FireworkEffect.Type[] types = { FireworkEffect.Type.BALL,
 		FireworkEffect.Type.BALL_LARGE, FireworkEffect.Type.BURST,
 		FireworkEffect.Type.CREEPER, FireworkEffect.Type.STAR, };
 
@@ -121,14 +121,12 @@ public class Util {
 
 	//がちゃりんごの名前を取得
 	public static String getGachaimoName(){
-		String name = ChatColor.GOLD + "" + ChatColor.BOLD + "がちゃりんご";
-		return name;
+        return ChatColor.GOLD + "" + ChatColor.BOLD + "がちゃりんご";
 	}
 	//がちゃりんごの説明を取得
 	public static List<String> getGachaimoLore(){
-		List<String> lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.GRAY + "序盤に重宝します。"
-				, ChatColor.RESET + "" +  ChatColor.AQUA + "マナ回復（小）");
-		return lore;
+        return Arrays.asList(ChatColor.RESET + "" +  ChatColor.GRAY + "序盤に重宝します。"
+                , ChatColor.RESET + "" +  ChatColor.AQUA + "マナ回復（小）");
 	}
 
 	//椎名林檎の取得
@@ -145,12 +143,11 @@ public class Util {
 		return maxringo;
 	}
 	//椎名林檎の説明を取得
-	public static List<String> getMaxRingoLore(String name){
-		List<String> lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.GRAY + "使用するとマナが全回復します"
-				, ChatColor.RESET + "" +  ChatColor.AQUA + "マナ完全回復"
-				, ChatColor.RESET + "" +  ChatColor.DARK_GREEN + "所有者:" + name
-				, ChatColor.RESET + "" +  ChatColor.GRAY + "ガチャ景品と交換しました。");
-		return lore;
+	private static List<String> getMaxRingoLore(String name){
+        return Arrays.asList(ChatColor.RESET + "" +  ChatColor.GRAY + "使用するとマナが全回復します"
+                , ChatColor.RESET + "" +  ChatColor.AQUA + "マナ完全回復"
+                , ChatColor.RESET + "" +  ChatColor.DARK_GREEN + "所有者:" + name
+                , ChatColor.RESET + "" +  ChatColor.GRAY + "ガチャ景品と交換しました。");
 	}
 
 	//String -> double
@@ -458,7 +455,7 @@ public class Util {
 
 	}
 	//カラーをランダムで決める
-	public static Color[] getRandomColors(int length) {
+	private static Color[] getRandomColors(int length) {
 		// 配列を作る
 		Color[] colors = new Color[length];
 		Random rand = new Random();
@@ -482,7 +479,7 @@ public class Util {
 
 		// Check that the API is enabled
 		CoreProtectAPI CoreProtect = ((CoreProtect)plugin).getAPI();
-		if (CoreProtect.isEnabled()==false){
+		if (!CoreProtect.isEnabled()){
 		    return null;
 		}
 
@@ -912,10 +909,9 @@ public class Util {
 	}
 
 	public static boolean isMineHeadItem(ItemStack itemstack) {
-		if(itemstack.getType().equals(Material.CARROT_STICK) &&
-				LoreContains(itemstack.getItemMeta().getLore(), "頭を狩り取る形をしている...") >= 0 ) {return true;}
-		return false;
-	}
+        return itemstack.getType().equals(Material.CARROT_STICK) &&
+                LoreContains(itemstack.getItemMeta().getLore(), "頭を狩り取る形をしている...") >= 0;
+    }
 
 	public static ItemStack getMineHeadItem() {
 		ItemStack itemstack = new ItemStack(Material.CARROT_STICK,1,(short) 1);

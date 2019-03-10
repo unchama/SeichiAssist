@@ -23,7 +23,7 @@ public class ExperienceManager {
 	// this is to stop the lookup table growing without control
 	private static int hardMaxLevel = 100000;
 
-	private static int xpTotalToReachLevel[];
+    private static int[] xpTotalToReachLevel;
 
 	private final WeakReference<Player> player;
 	private final String playerName;
@@ -107,7 +107,7 @@ public class ExperienceManager {
 	 * @return the Player object
 	 * @throws IllegalStateException if the player is no longer online
 	 */
-	public Player getPlayer() {
+    private Player getPlayer() {
 		Player p = player.get();
 		if (p == null) {
 			throw new IllegalStateException("Player " + playerName + " is not online");
@@ -133,7 +133,7 @@ public class ExperienceManager {
 	 *
 	 * @param amt Amount of XP, may be negative
 	 */
-	public void changeExp(double amt) {
+    private void changeExp(double amt) {
 		setExp(getCurrentFractionalXP(), amt);
 	}
 
@@ -184,8 +184,7 @@ public class ExperienceManager {
 		Player player = getPlayer();
 
 		int lvl = player.getLevel();
-		int cur = getXpForLevel(lvl) + Math.round(getXpNeededToLevelUp(lvl) * player.getExp());
-		return cur;
+        return getXpForLevel(lvl) + Math.round(getXpNeededToLevelUp(lvl) * player.getExp());
 	}
 
 	/**
@@ -197,8 +196,7 @@ public class ExperienceManager {
 		Player player = getPlayer();
 
 		int lvl = player.getLevel();
-		double cur = getXpForLevel(lvl) + (double) (getXpNeededToLevelUp(lvl) * player.getExp());
-		return cur;
+        return getXpForLevel(lvl) + (double) (getXpNeededToLevelUp(lvl) * player.getExp());
 	}
 
 	/**
@@ -228,7 +226,7 @@ public class ExperienceManager {
 	 * @return the level that a player with this amount total XP would be
 	 * @throws IllegalArgumentException if the given XP is less than 0
 	 */
-	public int getLevelForExp(int exp) {
+    private int getLevelForExp(int exp) {
 		if (exp <= 0) {
 			return 0;
 		}
@@ -249,7 +247,7 @@ public class ExperienceManager {
 	 * @return the amount of experience at this level in the level bar
 	 * @throws IllegalArgumentException if the level is less than 0
 	 */
-	public int getXpNeededToLevelUp(int level) {
+    private int getXpNeededToLevelUp(int level) {
 		Validate.isTrue(level >= 0, "Level may not be negative.");
 		return level > 30 ? 62 + (level - 30) * 7 : level >= 16 ? 17 + (level - 15) * 3 : 17;
 	}
@@ -261,7 +259,7 @@ public class ExperienceManager {
 	 * @return The amount of XP needed for the level.
 	 * @throws IllegalArgumentException if the level is less than 0 or greater than the current hard maximum
 	 */
-	public int getXpForLevel(int level) {
+    private int getXpForLevel(int level) {
 		Validate.isTrue(level >= 0 && level <= hardMaxLevel, "Invalid level " + level + "(must be in range 0.." + hardMaxLevel + ")");
 		if (level >= xpTotalToReachLevel.length) {
 			initLookupTables(level * 2);

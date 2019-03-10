@@ -25,8 +25,8 @@ import java.util.*;
  * 正月イベント・お年玉袋関連処理実装クラス。
  */
 public class NewYearBagListener implements Listener {
-    private static Config config = SeichiAssist.config;
-    private static Map<UUID, PlayerData> playerMap = SeichiAssist.playermap;
+    private static final Config config = SeichiAssist.config;
+    private static final Map<UUID, PlayerData> playerMap = SeichiAssist.playermap;
     /**
      * プレイヤーがブロックを破壊した際に呼ばれるメソッド。
      * お年玉袋のドロップ処理に利用。

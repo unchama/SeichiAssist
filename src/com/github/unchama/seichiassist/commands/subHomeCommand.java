@@ -17,7 +17,7 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.util.Util;
 
 public class subHomeCommand implements TabExecutor {
-	SeichiAssist plugin;
+	private final SeichiAssist plugin;
 
 	public subHomeCommand(SeichiAssist _plugin){
 		plugin = _plugin;

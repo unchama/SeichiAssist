@@ -10,7 +10,7 @@ import com.github.unchama.seichiassist.util.Util;
 
 public class Config{
 	private static FileConfiguration config;
-	private SeichiAssist plugin;
+	private final SeichiAssist plugin;
 
 	//コンストラクタ
 	Config(SeichiAssist _plugin){
@@ -35,12 +35,12 @@ public class Config{
 	}
 
 	//plugin.ymlがない時にDefaultのファイルを生成
-	public void saveDefaultConfig(){
+    private void saveDefaultConfig(){
 		plugin.saveDefaultConfig();
 	}
 
 	//plugin.ymlファイルからの読み込み
-	public FileConfiguration getConfig(){
+    private FileConfiguration getConfig(){
 		return plugin.getConfig();
 	}
 

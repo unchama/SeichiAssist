@@ -12,8 +12,8 @@ import org.bukkit.command.TabExecutor;
 import java.util.List;
 
 public class lastquitCommand implements TabExecutor{
-	public SeichiAssist plugin;
-	Sql sql = SeichiAssist.sql;
+	private final SeichiAssist plugin;
+	private final Sql sql = SeichiAssist.sql;
 
 
 	public lastquitCommand(SeichiAssist plugin){

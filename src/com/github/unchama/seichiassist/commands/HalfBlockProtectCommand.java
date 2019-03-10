@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class HalfBlockProtectCommand implements TabExecutor {
-    SeichiAssist plugin;
+    private final SeichiAssist plugin;
 
     public HalfBlockProtectCommand(SeichiAssist _plugin){
         plugin = _plugin;
