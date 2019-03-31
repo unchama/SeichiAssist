@@ -1,5 +1,6 @@
 package com.github.unchama.seichiassist.data.menu.slot;
 
+import com.github.unchama.seichiassist.data.menu.itemstack.SlotItemStackBuilder;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -48,5 +49,9 @@ public class BasicSlot implements Slot {
         if (overwrite) {
             this.icon = icon;
         }
+    }
+
+    public void test() {
+        ItemStack sth = SlotItemStackBuilder.of()
     }
 }
