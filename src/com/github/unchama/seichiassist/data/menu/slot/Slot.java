@@ -1,7 +1,10 @@
 package com.github.unchama.seichiassist.data.menu.slot;
 
 import com.avaje.ebean.validation.NotNull;
+import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
 
 /**
  * 単純な無機能のスロットを表すinterface.
@@ -9,18 +12,26 @@ import org.bukkit.inventory.ItemStack;
  */
 public interface Slot {
     /**
-     * スロットにあるItemStackを返します.
+     * スロットにあるIconを返します.
      *
-     * @return 設置されているItemStack
+     * @return 設置されているIcon
      */
     @NotNull
-    ItemStack getIcon();
+    Icon getIcon();
 
     /**
      * スロットにアイテムを設置します.
      *
-     * @param icon      設置するItemStack ({@code null} は許容されません)
+     * @param icon      設置するIcon ({@code null} は許容されません)
      * @param overwrite true: アイテムを上書きする / false: アイテムを上書きしない.
      */
-    void setIcon(ItemStack icon, boolean overwrite);
+    void setIcon(Icon icon, boolean overwrite);
+
+    /**
+     * スロットにあるItemStackを返します.
+     *
+     * @return セットされているItemStack
+     */
+    @Nonnull
+    ItemStack getItemStack();
 }

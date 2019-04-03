@@ -1,21 +1,19 @@
 package com.github.unchama.seichiassist.util;
 
+import com.github.unchama.seichiassist.data.PlayerData;
+
 import javax.annotation.Nonnull;
 
 /**
- * Builderを表すinterface.
- * Created by karayuu on 2019/03/29
- *
- * @param <T> Buildするインスタンスの型
+ * プレイヤーデータを用いてBuildするBuilderを表すインターフェース.
+ * @param <T> Buildする際に生成するインスタンスの型
  */
-public interface Builder<T> {
+public interface PlayerDataHandleBuilder<T> {
     /**
      * Builderによって指定された各引数を用いてインスタンスを生成します
      *
      * @return 生成されたインスタンス. ({@code null} は許容されません)
      */
     @Nonnull
-    T build();
+    T build(PlayerData playerData);
 }
-
-

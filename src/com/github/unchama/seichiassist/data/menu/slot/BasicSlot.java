@@ -1,6 +1,6 @@
 package com.github.unchama.seichiassist.data.menu.slot;
 
-import com.github.unchama.seichiassist.data.menu.itemstack.SlotItemStackBuilder;
+import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -13,45 +13,48 @@ import static java.util.Objects.requireNonNull;
  */
 public class BasicSlot implements Slot {
     /**
-     * スロットのItemStack ({@code null} は許容されません)
+     * スロットのIcon ({@code null} は許容されません)
      */
     @Nonnull
-    private ItemStack icon;
+    private Icon icon;
 
     /**
      * Slotを生成します.
      *
-     * @param icon スロットに表示するItemStack ({@code null} は許容されません)
+     * @param itemStack スロットに表示するItemStack ({@code null} は許容されません)
      */
-    private BasicSlot(@Nonnull ItemStack icon) {
-        requireNonNull(icon);
-        this.icon = icon;
+    private BasicSlot(@Nonnull ItemStack itemStack) {
+        requireNonNull(itemStack);
+        this.icon = Icon.of(itemStack);
     }
 
     /**
      * Slotを生成します.
      *
-     * @param icon スロットに表示するItemStack ({@code null} は許容されません)
+     * @param itemStack スロットに表示するItemStack ({@code null} は許容されません)
      */
-    public static BasicSlot of(@Nonnull ItemStack icon) {
-        return new BasicSlot(icon);
+    public static BasicSlot of(@Nonnull ItemStack itemStack) {
+        requireNonNull(itemStack);
+        return new BasicSlot(itemStack);
     }
 
     @Nonnull
     @Override
-    public ItemStack getIcon() {
+    public Icon getIcon() {
         return icon;
     }
 
+    @Nonnull
     @Override
-    public void setIcon(@Nonnull ItemStack icon, boolean overwrite) {
+    public ItemStack getItemStack() {
+        return icon.getItemStack();
+    }
+
+    @Override
+    public void setIcon(@Nonnull Icon icon, boolean overwrite) {
         requireNonNull(icon);
         if (overwrite) {
             this.icon = icon;
         }
-    }
-
-    public void test() {
-        ItemStack sth = SlotItemStackBuilder.of()
     }
 }
