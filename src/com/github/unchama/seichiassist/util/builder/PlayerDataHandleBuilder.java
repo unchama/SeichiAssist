@@ -1,4 +1,4 @@
-package com.github.unchama.seichiassist.util;
+package com.github.unchama.seichiassist.util.builder;
 
 import com.github.unchama.seichiassist.data.PlayerData;
 

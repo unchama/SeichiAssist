@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.data.menu.inventory.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -830,6 +831,9 @@ public class SeichiAssist extends JavaPlugin {
             "world_SW", "world_SW_2", "world_SW_3", "world_SW_nether", "world_SW_the_end"
     );
 
+    /** Menuの一覧 */
+    public static List<Menu> menus = Collections.emptyList();
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -943,6 +947,8 @@ public class SeichiAssist extends JavaPlugin {
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "SeichiAssistBungee", new BungeeReceiver(this));
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "SeichiAssistBungee");
 
+        //Menuの登録用
+        menus.forEach(menu -> getServer().getPluginManager().registerEvents(menu, this));
 
         //オンラインの全てのプレイヤーを処理
         for (Player p : getServer().getOnlinePlayers()) {

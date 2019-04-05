@@ -1,7 +1,8 @@
 package com.github.unchama.seichiassist.data.menu.icon;
 
 import com.github.unchama.seichiassist.data.PlayerData;
-import com.github.unchama.seichiassist.util.PlayerDataHandleBuilder;
+import com.github.unchama.seichiassist.data.menu.slot.Slot;
+import com.github.unchama.seichiassist.util.builder.PlayerDataHandleBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -18,11 +19,11 @@ import java.util.function.Function;
 import static java.util.Objects.requireNonNull;
 
 /**
- * ItemStack,特にメニューに使用するスロットのItemStackを生成するBuilderです.
+ * ItemStack,特にメニューに使用するスロットのIconを生成するBuilderです.
  * <p>
  * Created by karayuu on 2019/03/30
  */
-public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
+public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     @Nonnull
     private Material material;
     @Nonnull
@@ -40,7 +41,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
     }
 
     /**
-     * ItemStackを生成するBuilderを生成します.
+     * Iconを生成するBuilderを生成します.
      *
      * @param material ItemStackに設定するMaterial ({@code null} は許容されません)
      */
@@ -51,7 +52,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
     }
 
     /**
-     * ItemStackの表示名を設定します.
+     * ItemStack(icon)の表示名を設定します.
      *
      * @param title PlayerDataを受け取り,表示名を返すFunction
      * @return このBuilder
@@ -64,7 +65,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
     }
 
     /**
-     * ItemStackのloreを設定します.
+     * ItemStack(icon)のloreを設定します.
      *
      * @param lore PlayerDataを受け取り,loreを返すFunction
      * @return このBuilder
@@ -77,7 +78,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
     }
 
     /**
-     * ItemStackにエンチャントを付与します.
+     * ItemStack(icon)にエンチャントを付与します.
      *
      * @return このBuilder
      */
@@ -88,7 +89,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
     }
 
     /**
-     * ItemStackの各種情報を表示させます.(シャベルの採掘速度等)
+     * ItemStack(icon)の各種情報を表示させます.(シャベルの採掘速度等)
      *
      * @return このBuilder
      */
@@ -100,8 +101,8 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
 
     @Nonnull
     @Override
-    public ItemStack build(PlayerData playerData) {
-        ItemStack icon = new ItemStack(material);
+    public Icon build(PlayerData playerData) {
+        ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = Bukkit.getItemFactory().getItemMeta(material);
         meta.setDisplayName(title.apply(playerData));
         meta.setLore(lore.apply(playerData));
@@ -115,7 +116,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<ItemStack> {
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         }
 
-        icon.setItemMeta(meta);
-        return icon;
+        itemStack.setItemMeta(meta);
+        return Icon.of(itemStack);
     }
 }

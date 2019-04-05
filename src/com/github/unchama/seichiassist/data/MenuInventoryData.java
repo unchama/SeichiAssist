@@ -1086,10 +1086,10 @@ public class MenuInventoryData {
 		for(int i=start; i<max; i++){ //minestackbuttonのインベントリの位置
 			  int ii = i + page*45 - 1; //minestacklistのindex
 			MineStackObj msobj = SeichiAssist.minestacklist.get(ii);
-			if(msobj.getItemStack()==null){
+			if(msobj.itemStackValue()==null){
 				setMineStackButton(inventory, playerdata.minestack.getNum(ii), new ItemStack(msobj.getMaterial(), 1, (short)msobj.getDurability()),  SeichiAssist.config.getMineStacklevel(msobj.getLevel()), i, msobj.getJapaneseName());
 			} else {
-				setMineStackButton(inventory, playerdata.minestack.getNum(ii), msobj.getItemStack(), SeichiAssist.config.getMineStacklevel(msobj.getLevel()), i, msobj.getJapaneseName());
+				setMineStackButton(inventory, playerdata.minestack.getNum(ii), msobj.itemStackValue(), SeichiAssist.config.getMineStacklevel(msobj.getLevel()), i, msobj.getJapaneseName());
 			}
 		}
 		*/

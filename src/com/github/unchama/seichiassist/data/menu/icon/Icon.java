@@ -36,7 +36,7 @@ public class Icon {
      * @return ItemStack
      */
     @Nonnull
-    public ItemStack getItemStack() {
+    public ItemStack itemStackValue() {
         return itemStack;
     }
 }
