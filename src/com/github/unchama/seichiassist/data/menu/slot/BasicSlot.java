@@ -4,6 +4,7 @@ import com.avaje.ebean.validation.NotNull;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
+import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,14 +30,14 @@ public class BasicSlot implements Slot {
      * スロットのIconのBuilder ({@code null} は許容されません)
      */
     @Nonnull
-    private SlotIconBuilder builder;
+    private IconBuilder<? extends Icon> builder;
 
     /**
      * Slotを生成します.
      *
      * @param builder スロットに表示するiconのbuilder ({@code null} は許容されません)
      */
-    public BasicSlot(@Nonnull SlotIconBuilder builder) {
+    public BasicSlot(@Nonnull IconBuilder<? extends Icon> builder) {
         requireNonNull(builder);
         this.builder = builder;
     }
@@ -46,7 +47,7 @@ public class BasicSlot implements Slot {
      *
      * @param builder スロットに表示するIconのbuilder ({@code null} は許容されません)
      */
-    public static BasicSlot of(@Nonnull SlotIconBuilder builder) {
+    public static BasicSlot of(@Nonnull IconBuilder<? extends Icon> builder) {
         requireNonNull(builder);
         return new BasicSlot(builder);
     }
@@ -72,7 +73,7 @@ public class BasicSlot implements Slot {
 
     @Nonnull
     @Override
-    public SlotIconBuilder getBuilder() {
+    public IconBuilder<? extends Icon> getBuilder() {
         return this.builder;
     }
 
@@ -83,7 +84,7 @@ public class BasicSlot implements Slot {
     }
 
     @Override
-    public void setIcon(@Nonnull SlotIconBuilder builder, boolean overwrite) {
+    public void setIcon(@Nonnull IconBuilder<? extends Icon> builder, boolean overwrite) {
         requireNonNull(builder);
         if (overwrite) {
             this.builder = builder;

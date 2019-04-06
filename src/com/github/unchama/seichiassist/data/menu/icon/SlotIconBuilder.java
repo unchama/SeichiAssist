@@ -1,8 +1,8 @@
 package com.github.unchama.seichiassist.data.menu.icon;
 
 import com.github.unchama.seichiassist.data.PlayerData;
-import com.github.unchama.seichiassist.data.menu.slot.Slot;
-import com.github.unchama.seichiassist.util.builder.PlayerDataHandleBuilder;
+import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlotBuilder;
+import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -23,7 +22,7 @@ import static java.util.Objects.requireNonNull;
  * <p>
  * Created by karayuu on 2019/03/30
  */
-public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
+public class SlotIconBuilder implements IconBuilder<Icon> {
     @Nonnull
     private Material material;
     @Nonnull
@@ -52,7 +51,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     }
 
     /**
-     * ItemStack(icon)の表示名を設定します.
+     * ItemStack(IconBuilder)の表示名を設定します.
      *
      * @param title PlayerDataを受け取り,表示名を返すFunction
      * @return このBuilder
@@ -65,7 +64,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     }
 
     /**
-     * ItemStack(icon)のloreを設定します.
+     * ItemStack(IconBuilder)のloreを設定します.
      *
      * @param lore PlayerDataを受け取り,loreを返すFunction
      * @return このBuilder
@@ -78,7 +77,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     }
 
     /**
-     * ItemStack(icon)にエンチャントを付与します.
+     * ItemStack(IconBuilder)にエンチャントを付与します.
      *
      * @return このBuilder
      */
@@ -89,7 +88,7 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     }
 
     /**
-     * ItemStack(icon)の各種情報を表示させます.(シャベルの採掘速度等)
+     * ItemStack(IconBuilder)の各種情報を表示させます.(シャベルの採掘速度等)
      *
      * @return このBuilder
      */
@@ -97,6 +96,16 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
     public SlotIconBuilder showAttribute() {
         this.showAttribute = true;
         return this;
+    }
+
+    /**
+     * SlotIconBuilderからFunctionalSlotBuilderを生成します.
+     *
+     * @return FunctionalSlotBuilder
+     */
+    @Nonnull
+    public FunctionalSlotBuilder toFunctionalSlotBuilder() {
+        return FunctionalSlotBuilder.of(this);
     }
 
     @Nonnull
@@ -117,6 +126,6 @@ public class SlotIconBuilder implements PlayerDataHandleBuilder<Icon> {
         }
 
         itemStack.setItemMeta(meta);
-        return Icon.of(itemStack);
+        return com.github.unchama.seichiassist.data.menu.icon.Icon.of(itemStack);
     }
 }

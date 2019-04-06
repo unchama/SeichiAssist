@@ -1,7 +1,8 @@
 package com.github.unchama.seichiassist.data.menu.inventory;
 
+import com.github.unchama.seichiassist.data.menu.inventory.chest.ChestMenu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
-import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlot;
+import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author karayuu
  */
-public interface Menu extends Listener {
+public interface Menu<T> extends Listener {
     /**
      * メニューを開きます.
      *
@@ -25,32 +26,37 @@ public interface Menu extends Listener {
     void open(@Nonnull Player player);
 
     /**
-     * メニューにSlotをセットします.
-     * すでにメニューにSlotがセットされている場合は上書きします.
+     * メニューにSlotのBuilderを追加します.
+     * 同じrow, columnにIconがSlotがあった場合,どちらかが消滅します.
      *
-     * @param slot セットするSlot ({@code null} は許容されません.)
+     * @param builder 追加するSlotのBuilder ({@code null} は許容されません.)
+     * @return このMenu
      */
-    void setSlot(@Nonnull Slot slot);
+    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot> builder);
 
     /**
-     * メニューにSlotをセットします.
-     * すでにメニューにSlotがセットされている場合は上書きします.
+     * メニューにSlotのBuilderを追加します.
+     * 同じrow, columnにIconがSlotがあった場合,どちらかが消滅します.
      *
-     * @param slots セットするFunctionalSlotのList (各要素全てにおいて {@code null} は許容されません.)
+     * @param builders セットするSlotのBuilderのList (各要素全てにおいて {@code null} は許容されません.)
+     * @return このMenu
      */
-    void setSlot(@Nonnull List<Slot> slots);
+    T addSlotBuilder(@Nonnull List<SlotBuilder<? extends Slot>> builders);
 
     /**
-     * メニューにSlotをセットします.
-     * すでにメニューにSlotがセットされている場合は上書きします.
+     * メニューにSlotのBuilderを追加します.
+     * 同じrow, columnにIconがSlotがあった場合,どちらかが消滅します.
      *
-     * @param slots セットするSlot (各要素全てにおいて {@code null} は許容されません.)
+     * @param slotBuilders セットするSlotのBuilder (各要素全てにおいて {@code null} は許容されません.)
+     * @return このMenu
      */
-    void setSlot(@Nonnull Slot... slots);
+    @SuppressWarnings("unchecked")
+    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot>... slotBuilders);
 
     /**
-     * 与えられたInventoryClickEventからスロット番号を取得してtrigger,actionを起こします
-     * もし,そのスロットにTrigger,Actionが付与されていなかったり,どちらかが欠けていた場合は何も起こしません.
+     * 与えられたInventoryClickEventからスロット番号を取得してtrigger,actionを起こします. <br>
+     * もし,そのスロットにTrigger,Actionが付与されていなかったり,どちらかが欠けていた場合は何も起こしません. <br>
+     * プレイヤー内のインベントリをクリックした場合も何も起こしません. <br>
      *
      * @param event InventoryClickEvent
      */

@@ -1,9 +1,10 @@
 package com.github.unchama.seichiassist.data.menu.slot.functional;
 
 import com.avaje.ebean.validation.NotNull;
-import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
+import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import com.github.unchama.seichiassist.data.menu.slot.action.SlotHandler;
-import com.github.unchama.seichiassist.util.builder.Builder;
+import com.github.unchama.seichiassist.util.builder.IconBuilder;
+import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import javax.annotation.Nonnull;
@@ -15,9 +16,9 @@ import static java.util.Objects.requireNonNull;
 /**
  * @author karayuu
  */
-public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
+public class FunctionalSlotBuilder implements SlotBuilder<FunctionalSlot> {
     @Nonnull
-    private SlotIconBuilder builder;
+    private IconBuilder<? extends Icon> builder;
 
     @Nonnull
     private Function<InventoryClickEvent, Boolean> trigger;
@@ -30,7 +31,7 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
     private int row = 0;
     private int column = 0;
 
-    private FunctionalSlotBuilder(@Nonnull SlotIconBuilder builder) {
+    private FunctionalSlotBuilder(@Nonnull IconBuilder<? extends Icon> builder) {
         requireNonNull(builder);
         this.builder = builder;
     }
@@ -38,10 +39,10 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
     /**
      * Functionalスロットを構成するBuilderを作成します.
      *
-     * @param builder SlotIconBuilder ({@code null} は許容されません.)
+     * @param builder IconBuilder ({@code null} は許容されません.)
      */
     @Nonnull
-    public static FunctionalSlotBuilder of(@Nonnull SlotIconBuilder builder) {
+    public static FunctionalSlotBuilder of(@Nonnull IconBuilder<? extends Icon> builder) {
         return new FunctionalSlotBuilder(builder);
     }
 
@@ -50,7 +51,7 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
      * triggerとはactionを行うかをBoolean型で返すFunctionです.
      *
      * @param trigger トリガー ({@code null} は許容されません.)
-     * @return Builder
+     * @return BaseBuilder
      * @see #action
      */
     @Nonnull
@@ -65,7 +66,7 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
      * actionとはtriggerがtrueを返した際に行わせる動作のことです.
      *
      * @param action アクション ({@code null} は許容されません.)
-     * @return Builder
+     * @return BaseBuilder
      */
     @Nonnull
     public FunctionalSlotBuilder action(Consumer<InventoryClickEvent> action) {
@@ -78,7 +79,7 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
      * SlotのReadOnlyを解除します.
      * 通常は使用しないべきです.
      *
-     * @return Builder
+     * @return BaseBuilder
      * @Deprecated 通常使用するべきではないため.(不具合を生じる恐れがある.)
      */
     @Nonnull
@@ -93,7 +94,7 @@ public class FunctionalSlotBuilder implements Builder<FunctionalSlot> {
      *
      * @param row    行(非負整数)
      * @param column 列(非負整数)
-     * @return Builder
+     * @return BaseBuilder
      */
     @Nonnull
     public FunctionalSlotBuilder at(int row, int column) {

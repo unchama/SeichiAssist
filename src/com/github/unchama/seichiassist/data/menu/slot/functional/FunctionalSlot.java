@@ -1,8 +1,9 @@
 package com.github.unchama.seichiassist.data.menu.slot.functional;
 
-import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
+import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import com.github.unchama.seichiassist.data.menu.slot.BasicSlot;
 import com.github.unchama.seichiassist.data.menu.slot.action.SlotHandler;
+import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ public final class FunctionalSlot extends BasicSlot {
      *
      * @param builder スロットに表示するIconのBuilder ({@code null} は許容されません)
      */
-    private FunctionalSlot(@Nonnull SlotIconBuilder builder) {
+    private FunctionalSlot(@Nonnull IconBuilder<? extends Icon> builder) {
         super(builder);
     }
 
@@ -41,7 +42,7 @@ public final class FunctionalSlot extends BasicSlot {
      * @param builder スロットに表示するiconのBuilder ({@code null} は許容されません)
      */
     @Nonnull
-    public static FunctionalSlot of(@Nonnull SlotIconBuilder builder) {
+    public static FunctionalSlot of(@Nonnull IconBuilder<? extends Icon> builder) {
         requireNonNull(builder);
         return new FunctionalSlot(builder);
     }

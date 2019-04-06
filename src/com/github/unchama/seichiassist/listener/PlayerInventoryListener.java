@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.unchama.seichiassist.data.menu.menus.ServerSwitchMenu;
 import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.Bukkit;
@@ -66,68 +67,8 @@ public class PlayerInventoryListener implements Listener {
 	//サーバー選択メニュー
 	@EventHandler
 	public void onPlayerClickServerSwitchMenuEvent(InventoryClickEvent event){
-		//外枠のクリック処理なら終了
-		if(event.getClickedInventory() == null){
-			return;
-		}
-
-		ItemStack itemstackcurrent = event.getCurrentItem();
-		InventoryView view = event.getView();
-		HumanEntity he = view.getPlayer();
-		//インベントリを開けたのがプレイヤーではない時終了
-		if(!he.getType().equals(EntityType.PLAYER)){
-			return;
-		}
-
-		Inventory topinventory = view.getTopInventory();
-		//インベントリが存在しない時終了
-		if(topinventory == null){
-			return;
-		}
-		//インベントリサイズが36でない時終了
-		if(topinventory.getSize() != 2*9){
-			return;
-		}
-		Player player = (Player)he;
-
-		//インベントリ名が以下の時処理
-		if(topinventory.getTitle().equals(ChatColor.DARK_RED + "" + ChatColor.BOLD + "サーバーを選択してください")){
-			event.setCancelled(true);
-
-			//プレイヤーインベントリのクリックの場合終了
-			if(event.getClickedInventory().getType().equals(InventoryType.PLAYER)){
-				return;
-			}
-			ItemMeta meta = itemstackcurrent.getItemMeta();
-
-			/*
-			 * クリックしたボタンに応じた各処理内容の記述ここから
-			 */
-			ByteArrayDataOutput byteArrayDataOutput = ByteStreams
-					.newDataOutput();
-			//ページ変更処理
-			if(meta.getDisplayName().contains("アルカディアサーバー")){
-				byteArrayDataOutput.writeUTF("Connect");
-				byteArrayDataOutput.writeUTF("s1");
-				player.sendPluginMessage(SeichiAssist.plugin, "BungeeCord",
-						byteArrayDataOutput.toByteArray());
-			}else if(meta.getDisplayName().contains("エデンサーバー")){
-				byteArrayDataOutput.writeUTF("Connect");
-				byteArrayDataOutput.writeUTF("s2");
-				player.sendPluginMessage(SeichiAssist.plugin, "BungeeCord",
-						byteArrayDataOutput.toByteArray());
-			}else if(meta.getDisplayName().contains("ヴァルハラサーバー")){
-				byteArrayDataOutput.writeUTF("Connect");
-				byteArrayDataOutput.writeUTF("s3");
-				player.sendPluginMessage(SeichiAssist.plugin, "BungeeCord",
-						byteArrayDataOutput.toByteArray());
-			}else if(meta.getDisplayName().contains("公共施設サーバー")){
-				byteArrayDataOutput.writeUTF("Connect");
-				byteArrayDataOutput.writeUTF("s7");
-				player.sendPluginMessage(SeichiAssist.plugin, "BungeeCord",
-						byteArrayDataOutput.toByteArray());
-			}
-		}
+	    if (!(event.getWhoClicked() instanceof Player)) return;
+        ServerSwitchMenu.menu.open((Player) event.getWhoClicked());
 	}
 	//棒メニュー
 	@EventHandler

@@ -4,6 +4,7 @@ import com.avaje.ebean.validation.NotNull;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
+import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -43,7 +44,7 @@ public interface Slot {
      * @return セットされているiconのbuilder
      */
     @Nonnull
-    SlotIconBuilder getBuilder();
+    IconBuilder<? extends Icon> getBuilder();
 
     /**
      * スロットにアイテムを設置します.
@@ -51,7 +52,7 @@ public interface Slot {
      * @param builder   設置するIconのBuilder ({@code null} は許容されません)
      * @param overwrite true: アイテムを上書きする / false: アイテムを上書きしない.
      */
-    void setIcon(SlotIconBuilder builder, boolean overwrite);
+    void setIcon(IconBuilder<? extends Icon> builder, boolean overwrite);
 
     /**
      * スロットにあるItemStackを返します.
