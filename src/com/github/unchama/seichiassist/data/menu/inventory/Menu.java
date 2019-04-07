@@ -1,7 +1,7 @@
 package com.github.unchama.seichiassist.data.menu.inventory;
 
-import com.github.unchama.seichiassist.data.menu.inventory.chest.ChestMenu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
+import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlot;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +32,7 @@ public interface Menu<T> extends Listener {
      * @param builder 追加するSlotのBuilder ({@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot> builder);
+    T addSlotBuilder(@Nonnull SlotBuilder<Slot> builder);
 
     /**
      * メニューにSlotのBuilderを追加します.
@@ -41,17 +41,7 @@ public interface Menu<T> extends Listener {
      * @param builders セットするSlotのBuilderのList (各要素全てにおいて {@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull List<SlotBuilder<? extends Slot>> builders);
-
-    /**
-     * メニューにSlotのBuilderを追加します.
-     * 同じrow, columnにIconがSlotがあった場合,どちらかが消滅します.
-     *
-     * @param slotBuilders セットするSlotのBuilder (各要素全てにおいて {@code null} は許容されません.)
-     * @return このMenu
-     */
-    @SuppressWarnings("unchecked")
-    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot>... slotBuilders);
+    T addSlotBuilder(@Nonnull List<SlotBuilder<Slot>> builders);
 
     /**
      * 与えられたInventoryClickEventからスロット番号を取得してtrigger,actionを起こします. <br>
