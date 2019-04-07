@@ -19,6 +19,15 @@ import java.util.List;
  */
 public interface Menu<T> extends Listener {
     /**
+     * Menuの名前を取得します.
+     * あけているMenuの判定に用います.
+     *
+     * @return Menuの名前
+     */
+    @Nonnull
+    String getTitle();
+
+    /**
      * メニューを開きます.
      *
      * @param player メニューを開くプレイヤー ({@code null} は許容されません.)

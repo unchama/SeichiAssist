@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,10 @@ public class MenuListener implements Listener {
     public static List<Menu<? extends Menu>> menus = new ArrayList<>();
 
     @EventHandler
-    public void menuEvent(@Nonnull InventoryClickEvent event) {
-        menus.forEach(menu -> menu.invoke(event));
+    public void menuEvent(InventoryClickEvent event) {
+        String title = event.getInventory().getTitle();
+
+        /* Menuのinvokeを実行する条件を設定しています.Titleが同様であることが条件です. */
+        menus.stream().filter(menu -> menu.getTitle().equals(title)).forEach(menu -> menu.invoke(event));
     }
 }

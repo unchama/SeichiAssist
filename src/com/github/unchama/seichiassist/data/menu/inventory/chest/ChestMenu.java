@@ -5,7 +5,6 @@ import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.menu.MenuListener;
 import com.github.unchama.seichiassist.data.menu.inventory.Menu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
-import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlot;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
@@ -16,8 +15,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -29,7 +28,9 @@ import static java.util.Objects.requireNonNull;
  */
 public final class ChestMenu implements Menu<ChestMenu> {
     @Nonnull
-    private Inventory inventory;
+    private String title = "";
+
+    private int size;
 
     @Nonnull
     private List<SlotBuilder<Slot>> builders = new ArrayList<>();
@@ -41,7 +42,7 @@ public final class ChestMenu implements Menu<ChestMenu> {
      */
     private ChestMenu(int size) {
         if (size % 9 != 0) throw new IllegalArgumentException("ChestMenuのsizeは9の倍数でなければなりません.");
-        inventory = Bukkit.createInventory(null, size);
+        this.size = size;
         MenuListener.menus.add(this);
     }
 
@@ -54,8 +55,28 @@ public final class ChestMenu implements Menu<ChestMenu> {
         return new ChestMenu(size);
     }
 
+    /**
+     * Menuのtitleを設定します.
+     *
+     * @param title Menuのtitle (ただし,uniqueである必要があります.重複は動作保証外.) ({@code null} は許容されません.)
+     * @return ChestMenu
+     */
+    @Nonnull
+    public ChestMenu title(@Nonnull String title) {
+        requireNonNull(title);
+        this.title = title;
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public void open(@Nonnull Player player) {
+        Inventory inventory = Bukkit.createInventory(null, size, title);
         PlayerData playerData = SeichiAssist.playermap.get(player.getUniqueId());
         builders.forEach(builder -> {
             Slot slot = builder.build();
@@ -81,9 +102,13 @@ public final class ChestMenu implements Menu<ChestMenu> {
     @Override
     @EventHandler
     public void invoke(@Nonnull InventoryClickEvent event) {
-        Bukkit.getLogger().info("invoked");
-        //IF clicked slot belongs to the player's inventory, THEN return.
+        if (event.getClickedInventory() == null || event.getWhoClicked() == null) {
+            return;
+        }
+
+        //IF clicked slot belongs to the player's inventory, THEN make slot readonly(= can't move item) and return.
         if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+            event.setCancelled(true);
             return;
         }
 

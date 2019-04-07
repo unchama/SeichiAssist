@@ -43,7 +43,9 @@ public class ServerSwitchMenu {
         List<SlotBuilder<Slot>> builders = Arrays.asList(s1Builder, s2Builder, s3Builder);
 
         //(2)Menuを作成する.
-        menu = ChestMenu.fromSize(2 * 9).addSlotBuilder(builders);
+        menu = ChestMenu.fromSize(2 * 9)
+                .addSlotBuilder(builders)
+                .title(ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "サーバー間移動メニュー");
 
         //(3)MenuListenerのmenuのListに追加する -> 自動的に追加されます.
         //MenuListener.menus.add(menu);
