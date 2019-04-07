@@ -45,7 +45,8 @@ public class ServerSwitchMenu {
         //(2)Menuを作成する.
         menu = ChestMenu.fromSize(2 * 9)
                 .addSlotBuilder(builders)
-                .title(ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "サーバー間移動メニュー");
+                .title(ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "サーバー間移動メニュー")
+                .restrictPlayerInvItemMoving();
 
         //(3)MenuListenerのmenuのListに追加する -> 自動的に追加されます.
         //MenuListener.menus.add(menu);

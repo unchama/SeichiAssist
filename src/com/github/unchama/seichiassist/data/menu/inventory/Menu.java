@@ -1,5 +1,6 @@
 package com.github.unchama.seichiassist.data.menu.inventory;
 
+import com.github.unchama.seichiassist.data.menu.inventory.chest.ChestMenu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
 import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlot;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
@@ -61,4 +62,11 @@ public interface Menu<T> extends Listener {
      */
     @EventHandler
     void invoke(@Nonnull InventoryClickEvent event);
+
+    /**
+     * Menuにおいて,プレイヤーのInventoryのアイテム移動を制限します.
+     *
+     * @return このMenu
+     */
+    T restrictPlayerInvItemMoving();
 }

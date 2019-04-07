@@ -32,6 +32,8 @@ public final class ChestMenu implements Menu<ChestMenu> {
 
     private int size;
 
+    private boolean canMovePlayerInvItem = true;
+
     @Nonnull
     private List<SlotBuilder<Slot>> builders = new ArrayList<>();
 
@@ -65,6 +67,11 @@ public final class ChestMenu implements Menu<ChestMenu> {
     public ChestMenu title(@Nonnull String title) {
         requireNonNull(title);
         this.title = title;
+        return this;
+    }
+
+    public ChestMenu restrictPlayerInvItemMoving() {
+        this.canMovePlayerInvItem = false;
         return this;
     }
 
@@ -106,9 +113,12 @@ public final class ChestMenu implements Menu<ChestMenu> {
             return;
         }
 
-        //IF clicked slot belongs to the player's inventory, THEN make slot readonly(= can't move item) and return.
+        //IF clicked slot belongs to the player's inventory,
         if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
-            event.setCancelled(true);
+            //make slot readonly(= can't move item) if required.
+            if (!canMovePlayerInvItem) {
+                event.setCancelled(true);
+            }
             return;
         }
 
