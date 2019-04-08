@@ -121,7 +121,7 @@ public class PlayerInventoryListener implements Listener {
 						org.bukkit.ChatColor.RED + "" + org.bukkit.ChatColor.UNDERLINE + "" + org.bukkit.ChatColor.BOLD + "サーバー間移動メニュー")) {
 					//開く音を再生
 					player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 0.6F, 1.5F);
-					player.openInventory(MenuInventoryData.getServerSwitchMenu(player));
+					ServerSwitchMenu.menu.open(player);
 				}
 
 				if (itemstackcurrent.getItemMeta().getDisplayName().equals(

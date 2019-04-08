@@ -2,24 +2,24 @@ package com.github.unchama.seichiassist.data.menu.inventory.chest;
 
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
+import com.github.unchama.seichiassist.data.menu.MenuListener;
 import com.github.unchama.seichiassist.data.menu.inventory.Menu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
-//import com.github.unchama.seichiassist.data.menu.slot.Slots;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+
+//import com.github.unchama.seichiassist.data.menu.slot.Slots;
 
 /**
  * Chestベースのメニューを作成する際に使用するクラスです.
@@ -28,10 +28,14 @@ import static java.util.Objects.requireNonNull;
  */
 public final class ChestMenu implements Menu<ChestMenu> {
     @Nonnull
-    private Inventory inventory;
+    private String title = "";
+
+    private int size;
+
+    private boolean canMovePlayerInvItem = true;
 
     @Nonnull
-    private List<SlotBuilder<? extends Slot>> builders = Collections.emptyList();
+    private List<SlotBuilder<Slot>> builders = new ArrayList<>();
 
     /**
      * MenuのベースとなるInventoryを生成します.
@@ -39,8 +43,9 @@ public final class ChestMenu implements Menu<ChestMenu> {
      * @param size Inventoryのサイズ(9の倍数である必要があります.)
      */
     private ChestMenu(int size) {
-        if (size % 9 == 0) throw new IllegalArgumentException("ChestMenuのsizeは9の倍数でなければなりません.");
-        inventory = Bukkit.createInventory(null, size);
+        if (size % 9 != 0) throw new IllegalArgumentException("ChestMenuのsizeは9の倍数でなければなりません.");
+        this.size = size;
+        MenuListener.menus.add(this);
     }
 
     /**
@@ -52,34 +57,53 @@ public final class ChestMenu implements Menu<ChestMenu> {
         return new ChestMenu(size);
     }
 
+    /**
+     * Menuのtitleを設定します.
+     *
+     * @param title Menuのtitle (ただし,uniqueである必要があります.重複は動作保証外.) ({@code null} は許容されません.)
+     * @return ChestMenu
+     */
+    @Nonnull
+    public ChestMenu title(@Nonnull String title) {
+        requireNonNull(title);
+        this.title = title;
+        return this;
+    }
+
+    @Override
+    public ChestMenu restrictPlayerInvItemMoving() {
+        this.canMovePlayerInvItem = false;
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public void open(@Nonnull Player player) {
+        Inventory inventory = Bukkit.createInventory(null, size, title);
         PlayerData playerData = SeichiAssist.playermap.get(player.getUniqueId());
         builders.forEach(builder -> {
             Slot slot = builder.build();
             inventory.setItem(slot.getInventoryNum(), slot.getItemStack(playerData));
         });
+        player.openInventory(inventory);
     }
 
     @Override
-    public ChestMenu addSlotBuilder(@Nonnull SlotBuilder<? extends Slot> builder) {
+    public ChestMenu addSlotBuilder(@Nonnull SlotBuilder<Slot> builder) {
         requireNonNull(builder);
         builders.add(builder);
         return this;
     }
 
     @Override
-    public ChestMenu addSlotBuilder(@Nonnull List<SlotBuilder<? extends Slot>> slotBuilders) {
+    public ChestMenu addSlotBuilder(@Nonnull List<SlotBuilder<Slot>> slotBuilders) {
         requireNonNull(slotBuilders);
         slotBuilders.forEach(this::addSlotBuilder);
-        return this;
-    }
-
-    @Override
-    @SafeVarargs
-    public final ChestMenu addSlotBuilder(@Nonnull SlotBuilder<? extends Slot>... slotBuilders) {
-        requireNonNull(slotBuilders);
-        addSlotBuilder(Arrays.asList(slotBuilders));
         return this;
     }
 
@@ -102,10 +126,17 @@ public final class ChestMenu implements Menu<ChestMenu> {
     }*/
 
     @Override
-    @EventHandler
     public void invoke(@Nonnull InventoryClickEvent event) {
-        //IF clicked slot belongs to the player's inventory, THEN return.
+        if (event.getClickedInventory() == null || event.getWhoClicked() == null) {
+            return;
+        }
+
+        //IF clicked slot belongs to the player's inventory,
         if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+            //make slot readonly(= can't move item) if required.
+            if (!canMovePlayerInvItem) {
+                event.setCancelled(true);
+            }
             return;
         }
 
@@ -121,6 +152,4 @@ public final class ChestMenu implements Menu<ChestMenu> {
             }
         });
     }
-
-
 }

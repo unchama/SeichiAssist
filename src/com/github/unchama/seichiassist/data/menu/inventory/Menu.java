@@ -18,6 +18,15 @@ import java.util.List;
  */
 public interface Menu<T> extends Listener {
     /**
+     * Menuの名前を取得します.
+     * あけているMenuの判定に用います.
+     *
+     * @return Menuの名前
+     */
+    @Nonnull
+    String getTitle();
+
+    /**
      * メニューを開きます.
      *
      * @param player メニューを開くプレイヤー ({@code null} は許容されません.)
@@ -31,7 +40,7 @@ public interface Menu<T> extends Listener {
      * @param builder 追加するSlotのBuilder ({@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot> builder);
+    T addSlotBuilder(@Nonnull SlotBuilder<Slot> builder);
 
     /**
      * メニューにSlotのBuilderを追加します.
@@ -40,17 +49,7 @@ public interface Menu<T> extends Listener {
      * @param builders セットするSlotのBuilderのList (各要素全てにおいて {@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull List<SlotBuilder<? extends Slot>> builders);
-
-    /**
-     * メニューにSlotのBuilderを追加します.
-     * 同じrow, columnにIconがSlotがあった場合,どちらかが消滅します.
-     *
-     * @param slotBuilders セットするSlotのBuilder (各要素全てにおいて {@code null} は許容されません.)
-     * @return このMenu
-     */
-    @SuppressWarnings("unchecked")
-    T addSlotBuilder(@Nonnull SlotBuilder<? extends Slot>... slotBuilders);
+    T addSlotBuilder(@Nonnull List<SlotBuilder<Slot>> builders);
 
     /**
      * 与えられたInventoryClickEventからスロット番号を取得してtrigger,actionを起こします. <br>
@@ -75,4 +74,11 @@ public interface Menu<T> extends Listener {
     @Nonnull
     Slot getSlot(Player player, int bukkitSlotNum);
     */
+
+    /**
+     * Menuにおいて,プレイヤーのInventoryのアイテム移動を制限します.
+     *
+     * @return このMenu
+     */
+    T restrictPlayerInvItemMoving();
 }

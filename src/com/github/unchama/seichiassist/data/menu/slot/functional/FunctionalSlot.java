@@ -7,6 +7,7 @@ import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,7 +24,7 @@ import static java.util.Objects.requireNonNull;
  */
 public final class FunctionalSlot extends BasicSlot {
     @Nonnull
-    private List<SlotHandler> handlers = Collections.emptyList();
+    private List<SlotHandler> handlers = new ArrayList<>();
 
     private boolean isReadOnly = false;
 
