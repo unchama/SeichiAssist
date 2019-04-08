@@ -66,7 +66,7 @@ public class PlayerInventoryListener implements Listener {
 	private Sql sql = SeichiAssist.sql;
 	//サーバー選択メニュー
 	@EventHandler
-	public void onPlayerClickServerSwitchMenuEvent(InventoryClickEvent event){
+	public void onPlayerClickServerSwitchMenuEvent(InventoryClickEvent event) {
 	    if (!(event.getWhoClicked() instanceof Player)) return;
         ServerSwitchMenu.menu.open((Player) event.getWhoClicked());
 	}

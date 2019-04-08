@@ -4,6 +4,7 @@ import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.menu.inventory.Menu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
+//import com.github.unchama.seichiassist.data.menu.slot.Slots;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
@@ -82,6 +83,24 @@ public final class ChestMenu implements Menu<ChestMenu> {
         return this;
     }
 
+    /*@Nonnull
+    @Override
+    public Slot getSlot(Player player, int bukkitSlotNum) {
+        Slot[] slots = new Slot[1];
+        slots[0] = null;
+        builders.forEach(builder -> {
+            Slot slot = builder.build();
+            if (slot.getInventoryNum() == bukkitSlotNum) {
+                slots[0] = slot;
+            }
+        });
+        if (slots[0] == null) {
+            return Slots.EMPTY;
+        } else {
+            return slots[0];
+        }
+    }*/
+
     @Override
     @EventHandler
     public void invoke(@Nonnull InventoryClickEvent event) {
@@ -102,4 +121,6 @@ public final class ChestMenu implements Menu<ChestMenu> {
             }
         });
     }
+
+
 }

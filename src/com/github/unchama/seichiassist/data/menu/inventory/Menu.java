@@ -1,6 +1,5 @@
 package com.github.unchama.seichiassist.data.menu.inventory;
 
-import com.github.unchama.seichiassist.data.menu.inventory.chest.ChestMenu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.entity.Player;
@@ -62,4 +61,18 @@ public interface Menu<T> extends Listener {
      */
     @EventHandler
     void invoke(@Nonnull InventoryClickEvent event);
+
+    /*
+    /**
+     * BukkitのSlot番号から設置してあるSlotを取得します.
+     * そこに何も存在しない場合, {@code Slots.EMPTY} を返します.
+     *
+     * @param player 操作主体のPlayer
+     * @param bukkitSlotNum BukkitのSlot番号
+     * @return そこに存在するSlot (存在しない場合, {@code Slots.EMPTY})
+     */
+    /*
+    @Nonnull
+    Slot getSlot(Player player, int bukkitSlotNum);
+    */
 }

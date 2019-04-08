@@ -103,6 +103,13 @@ public class FunctionalSlotBuilder implements SlotBuilder<FunctionalSlot> {
         return this;
     }
 
+    /*@SuppressWarnings("unchecked")
+    @Override
+    @Nonnull
+    public IconBuilder<? extends Icon> getIconBuilder() {
+        return this.builder;
+    }*/
+
     @Nonnull
     @Override
     public FunctionalSlot build() {

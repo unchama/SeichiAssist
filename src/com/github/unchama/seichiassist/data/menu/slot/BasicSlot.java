@@ -1,15 +1,12 @@
 package com.github.unchama.seichiassist.data.menu.slot;
 
-import com.avaje.ebean.validation.NotNull;
 import com.github.unchama.seichiassist.data.PlayerData;
 import com.github.unchama.seichiassist.data.menu.icon.Icon;
-import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
 import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import javax.persistence.Version;
 
 import static java.util.Objects.requireNonNull;
 

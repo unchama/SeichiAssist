@@ -39,4 +39,18 @@ public class Icon {
     public ItemStack itemStackValue() {
         return itemStack;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Icon)) {
+            return false;
+        }
+        Icon icon = (Icon) object;
+        return itemStack.equals(icon.itemStack);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
