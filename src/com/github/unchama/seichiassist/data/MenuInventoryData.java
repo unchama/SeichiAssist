@@ -34,6 +34,7 @@ import com.github.unchama.seichiassist.util.Util;
 import com.sk89q.worldguard.bukkit.WorldConfiguration;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class MenuInventoryData {
 	private static HashMap<UUID, PlayerData> playermap = SeichiAssist.playermap;
@@ -1467,7 +1468,7 @@ public class MenuInventoryData {
 			skullmeta.setLore(lore);
 			skullmeta.setOwner(rankdata.name);
 			itemstack.setItemMeta(skullmeta);
-			inventory.setItem(count2,itemstack);
+            setItemAsAsync(inventory, count2, itemstack);
 		}
 
 		if(page!=maxpage){
@@ -1479,7 +1480,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(52,itemstack);
+        setItemAsAsync(inventory, 52, itemstack);
 		}
 
 		// 1ページ目を開く
@@ -1490,7 +1491,7 @@ public class MenuInventoryData {
 			skullmeta.setLore(lore);
 			skullmeta.setOwner("MHF_ArrowLeft");
 			itemstack.setItemMeta(skullmeta);
-			inventory.setItem(45,itemstack);
+            setItemAsAsync(inventory, 45, itemstack);
 		} else {
 			// 整地神ランキング前ページ目を開く;
 			skullmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "整地神ランキング"+page+"ページ目へ");
@@ -1499,7 +1500,7 @@ public class MenuInventoryData {
 			skullmeta.setLore(lore);
 			skullmeta.setOwner("MHF_ArrowUp");
 			itemstack.setItemMeta(skullmeta);
-			inventory.setItem(45,itemstack);
+            setItemAsAsync(inventory, 45, itemstack);
 		}
 
 		// 総整地量の表記
@@ -1515,6 +1516,22 @@ public class MenuInventoryData {
 
 		return inventory;
 	}
+
+    /**
+     * 与えられたインベントリに非同期的にアイテムをセットします。
+     * SpigotのJavadocによると, Asynchronous task 中ではSpigot APIを呼ぶべきではないようなので,
+     * ランキングメニュー表示用以外での使用は禁止.
+     * @Deprecated 不具合を生じる恐れがあるため.
+     *
+     * @param inv 設置するインベントリ
+     * @param num 設置番号
+     * @param item 設置するアイテム
+     */
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
+    private static void setItemAsAsync(Inventory inv, int num, ItemStack item) {
+        Bukkit.getScheduler().runTaskAsynchronously(SeichiAssist.plugin, () -> inv.setItem(num, item));
+    }
 
 	//ランキングリスト(ログイン時間)
 	public static Inventory getRankingList_playtick(Player p, int page){
