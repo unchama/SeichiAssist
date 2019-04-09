@@ -25,6 +25,20 @@ public interface Slot {
     void setArrangement(int row, int column);
 
     /**
+     * SlotのRowを取得します.
+     *
+     * @return row 行(非負整数)
+     */
+    int getRow();
+
+    /**
+     * SlotのColumnを取得します.
+     *
+     * @return column 列(非負整数)
+     */
+    int getColumn();
+
+    /**
      * Slotの配置をBukkitのinventoryで使用できる形で返します.
      *
      * @return Slotの配置場所

@@ -56,6 +56,16 @@ public class BasicSlot implements Slot {
     }
 
     @Override
+    public int getRow() {
+        return this.row;
+    }
+
+    @Override
+    public int getColumn() {
+        return this.column;
+    }
+
+    @Override
     public int getInventoryNum() {
         //the size of chest type inventory must be 9.
         final int WIDTH = 9;
