@@ -1,11 +1,13 @@
 package com.github.unchama.seichiassist.data.menu.icon;
 
 import com.github.unchama.seichiassist.data.PlayerData;
+import com.github.unchama.seichiassist.data.menu.icon.component.BaseIconComponent;
 import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlotBuilder;
 import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,19 +26,12 @@ import static java.util.Objects.requireNonNull;
  */
 public class SlotIconBuilder implements IconBuilder<Icon> {
     @Nonnull
-    private Material material;
-    @Nonnull
-    private Function<PlayerData, String> title;
-    @Nonnull
-    private Function<PlayerData, List<String>> lore;
-    private Boolean isEnchanted = false;
+    private final BaseIconComponent component;
     private Boolean showAttribute = false;
 
-    private SlotIconBuilder(@Nonnull Material material) {
+    protected SlotIconBuilder(@Nonnull Material material) {
         requireNonNull(material);
-        this.material = material;
-        this.title = playerData -> Bukkit.getItemFactory().getItemMeta(material).getDisplayName();
-        this.lore = playerData -> Collections.emptyList();
+        this.component = new BaseIconComponent(material);
     }
 
     /**
@@ -50,40 +45,33 @@ public class SlotIconBuilder implements IconBuilder<Icon> {
         return new SlotIconBuilder(material);
     }
 
-    /**
-     * ItemStack(IconBuilder)の表示名を設定します.
-     *
-     * @param title PlayerDataを受け取り,表示名を返すFunction
-     * @return このBuilder
-     */
+    @Override
     @Nonnull
     public SlotIconBuilder title(@Nonnull Function<PlayerData, String> title) {
         requireNonNull(title);
-        this.title = title;
+        this.component.setTitle(title);
         return this;
     }
 
-    /**
-     * ItemStack(IconBuilder)のloreを設定します.
-     *
-     * @param lore PlayerDataを受け取り,loreを返すFunction
-     * @return このBuilder
-     */
+    @Override
     @Nonnull
     public SlotIconBuilder lore(@Nonnull Function<PlayerData, List<String>> lore) {
         requireNonNull(lore);
-        this.lore = lore;
+        this.component.setLore(lore);
         return this;
     }
 
-    /**
-     * ItemStack(IconBuilder)にエンチャントを付与します.
-     *
-     * @return このBuilder
-     */
+    @Override
     @Nonnull
     public SlotIconBuilder enchanted() {
-        this.isEnchanted = true;
+        this.component.setEnchanted(true);
+        return this;
+    }
+
+    @Override
+    @Nonnull
+    public SlotIconBuilder number(int number) {
+        this.component.setNumber(number);
         return this;
     }
 
@@ -98,34 +86,25 @@ public class SlotIconBuilder implements IconBuilder<Icon> {
         return this;
     }
 
-    /**
-     * SlotIconBuilderからFunctionalSlotBuilderを生成します.
-     *
-     * @return FunctionalSlotBuilder
-     */
+    @Override
     @Nonnull
     public FunctionalSlotBuilder toFunctionalSlotBuilder() {
         return FunctionalSlotBuilder.of(this);
     }
 
-    @Nonnull
     @Override
-    public Icon build(PlayerData playerData) {
-        ItemStack itemStack = new ItemStack(material);
-        ItemMeta meta = Bukkit.getItemFactory().getItemMeta(material);
-        meta.setDisplayName(title.apply(playerData));
-        meta.setLore(lore.apply(playerData));
+    @Nonnull
+    public Icon build(@Nonnull PlayerData playerData) {
+        requireNonNull(playerData);
 
-        if (isEnchanted) {
-            meta.addEnchant(Enchantment.DIG_SPEED, 100, false);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        }
+        ItemStack itemStack = component.getItemStack();
+        ItemMeta meta = component.getItemMeta(playerData);
 
         if (!showAttribute) {
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         }
 
         itemStack.setItemMeta(meta);
-        return com.github.unchama.seichiassist.data.menu.icon.Icon.of(itemStack);
+        return Icon.of(itemStack);
     }
 }

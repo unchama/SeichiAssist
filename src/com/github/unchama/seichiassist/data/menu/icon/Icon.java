@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
 public class Icon {
     @Nonnull private ItemStack itemStack;
 
-    private Icon(@Nonnull ItemStack itemStack) {
+    protected Icon(@Nonnull ItemStack itemStack) {
         requireNonNull(itemStack);
         this.itemStack = itemStack;
     }
