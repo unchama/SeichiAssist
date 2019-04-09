@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import static java.util.Objects.requireNonNull;
  * @author karayuu
  */
 public final class ChestMenu implements Menu<ChestMenu> {
+    private SeichiAssist plugin = SeichiAssist.plugin;
+
     @Nonnull
     private String title = "";
 
@@ -88,7 +91,9 @@ public final class ChestMenu implements Menu<ChestMenu> {
         PlayerData playerData = SeichiAssist.playermap.get(player.getUniqueId());
         builders.forEach(builder -> {
             Slot slot = builder.build();
-            inventory.setItem(slot.getInventoryNum(), slot.getItemStack(playerData));
+            //非同期での設置を試してみる.
+            setItemAsAsynk(inventory, slot.getInventoryNum(), slot.getItemStack(playerData));
+            //inventory.setItem(slot.getInventoryNum(), slot.getItemStack(playerData));
         });
         player.openInventory(inventory);
     }
@@ -151,5 +156,9 @@ public final class ChestMenu implements Menu<ChestMenu> {
                 slot.invoke(event);
             }
         });
+    }
+
+    private void setItemAsAsynk(Inventory inventory, int number, ItemStack itemStack) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> inventory.setItem(number, itemStack));
     }
 }

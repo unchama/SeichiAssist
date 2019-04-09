@@ -6,6 +6,7 @@ import com.github.unchama.seichiassist.data.menu.icon.Icon;
 import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
 import com.github.unchama.seichiassist.util.builder.IconBuilder;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
