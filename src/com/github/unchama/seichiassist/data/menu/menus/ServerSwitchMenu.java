@@ -1,20 +1,16 @@
 package com.github.unchama.seichiassist.data.menu.menus;
 
-import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.bungee.BungeeStreamFactory;
-import com.github.unchama.seichiassist.data.menu.MenuListener;
 import com.github.unchama.seichiassist.data.menu.icon.SlotIconBuilder;
 import com.github.unchama.seichiassist.data.menu.inventory.chest.ChestMenu;
 import com.github.unchama.seichiassist.data.menu.slot.Slot;
 import com.github.unchama.seichiassist.data.menu.slot.action.SlotTriggers;
-import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlot;
 import com.github.unchama.seichiassist.data.menu.slot.functional.FunctionalSlotBuilder;
 import com.github.unchama.seichiassist.util.builder.SlotBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +44,7 @@ public class ServerSwitchMenu {
                 .title(ChatColor.RED + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "サーバー間移動メニュー")
                 .restrictPlayerInvItemMoving();
 
-        //(3)MenuListenerのmenuのListに追加する -> 自動的に追加されます.
+        //(3)MenuListenerのmenuのListに追加する -> 自動的に追加されます.ので不要.
         //MenuListener.menus.add(menu);
 
         //(4)このMenuを開く動作は
