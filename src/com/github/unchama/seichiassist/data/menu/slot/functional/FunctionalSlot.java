@@ -22,7 +22,7 @@ import static java.util.Objects.requireNonNull;
  * <p>
  * Created by karayuu on 2019/03/30
  */
-public final class FunctionalSlot extends BasicSlot {
+public class FunctionalSlot extends BasicSlot {
     @Nonnull
     private List<SlotHandler> handlers = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public final class FunctionalSlot extends BasicSlot {
      *
      * @param builder スロットに表示するIconのBuilder ({@code null} は許容されません)
      */
-    private FunctionalSlot(@Nonnull IconBuilder<? extends Icon> builder) {
+    protected FunctionalSlot(@Nonnull IconBuilder<? extends Icon> builder) {
         super(builder);
     }
 
