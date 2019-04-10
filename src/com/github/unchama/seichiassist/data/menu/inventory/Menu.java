@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author karayuu
  */
-public interface Menu<T> extends Listener {
+public interface Menu extends Listener {
     /**
      * Menuの名前を取得します.
      * あけているMenuの判定に用います.
@@ -40,7 +40,7 @@ public interface Menu<T> extends Listener {
      * @param builder 追加するSlotのBuilder ({@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull SlotBuilder<Slot> builder);
+    Menu addSlotBuilder(@Nonnull SlotBuilder<Slot> builder);
 
     /**
      * メニューにSlotのBuilderを追加します.
@@ -49,7 +49,7 @@ public interface Menu<T> extends Listener {
      * @param builders セットするSlotのBuilderのList (各要素全てにおいて {@code null} は許容されません.)
      * @return このMenu
      */
-    T addSlotBuilder(@Nonnull List<SlotBuilder<Slot>> builders);
+    Menu addSlotBuilder(@Nonnull List<SlotBuilder<Slot>> builders);
 
     /**
      * 与えられたInventoryClickEventからスロット番号を取得してtrigger,actionを起こします. <br>
@@ -80,5 +80,5 @@ public interface Menu<T> extends Listener {
      *
      * @return このMenu
      */
-    T restrictPlayerInvItemMoving();
+    Menu restrictPlayerInvItemMoving();
 }

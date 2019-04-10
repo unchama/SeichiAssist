@@ -3,16 +3,19 @@ package com.github.unchama.seichiassist.data;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Deque;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.data.menu.inventory.Menu;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.bukkit.Bukkit;
@@ -237,6 +240,9 @@ public class PlayerData {
 	public boolean isGBStageUp;
 	public int GBcd;
 
+	/** メニューの履歴表示用 */
+	public Deque<Menu> menuDeque;
+
 
 	public PlayerData(Player player){
 		//初期値を設定
@@ -357,6 +363,7 @@ public class PlayerData {
 		this.GBexp = 0;
 		this.isGBStageUp = false;
 		this.GBcd = 0;
+		this.menuDeque = new ArrayDeque<>();
 	}
 
 	//join時とonenable時、プレイヤーデータを最新の状態に更新

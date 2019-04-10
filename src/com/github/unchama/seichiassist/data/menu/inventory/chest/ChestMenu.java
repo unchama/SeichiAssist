@@ -27,7 +27,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @author karayuu
  */
-public final class ChestMenu implements Menu<ChestMenu> {
+public final class ChestMenu implements Menu {
     private SeichiAssist plugin = SeichiAssist.plugin;
 
     @Nonnull
@@ -96,6 +96,7 @@ public final class ChestMenu implements Menu<ChestMenu> {
             //inventory.setItem(slot.getInventoryNum(), slot.getItemStack(playerData));
         });
         player.openInventory(inventory);
+        playerData.menuDeque.addLast(this);
     }
 
     @Override
