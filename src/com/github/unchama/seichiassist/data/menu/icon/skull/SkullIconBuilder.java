@@ -23,7 +23,7 @@ public class SkullIconBuilder implements IconBuilder<Icon> {
     private final BaseIconComponent component;
 
     @Nonnull
-    private String ownerName;
+    private String ownerName = "";
 
     private SkullIconBuilder() {
         this.component = new BaseIconComponent(Material.SKULL_ITEM);

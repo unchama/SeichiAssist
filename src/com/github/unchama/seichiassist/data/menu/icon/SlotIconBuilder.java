@@ -29,7 +29,7 @@ public class SlotIconBuilder implements IconBuilder<Icon> {
     private final BaseIconComponent component;
     private Boolean showAttribute = false;
 
-    protected SlotIconBuilder(@Nonnull Material material) {
+    private SlotIconBuilder(@Nonnull Material material) {
         requireNonNull(material);
         this.component = new BaseIconComponent(material);
     }
