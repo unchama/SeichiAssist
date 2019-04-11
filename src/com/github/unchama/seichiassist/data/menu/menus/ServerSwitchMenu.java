@@ -29,14 +29,20 @@ public class ServerSwitchMenu {
 
     static {
         //(1)SlotBuilderを作成する.
-        SlotBuilder s1Builder = createBuilder(Material.DIAMOND_PICKAXE, "アルカディアサーバー", "旧第一サバイバルサーバー", "s1")
+        SlotBuilder s1Builder = createBuilder(Material.DIAMOND_PICKAXE, ChatColor.YELLOW + "アルカディアサーバー",
+                "旧第一サバイバルサーバー", "s1")
                 .at(1, 1);
-        SlotBuilder s2Builder = createBuilder(Material.DIAMOND_SPADE, "エデンサーバー", "旧第二サバイバルサーバー", "s2")
+        SlotBuilder s2Builder = createBuilder(Material.DIAMOND_SPADE,  ChatColor.YELLOW + "エデンサーバー",
+                "旧第二サバイバルサーバー", "s2")
                 .at(2, 1);
-        SlotBuilder s3Builder = createBuilder(Material.DIAMOND_AXE, "ヴァルハラサーバー", "旧第三サバイバルサーバー", "s3")
+        SlotBuilder s3Builder = createBuilder(Material.DIAMOND_AXE, ChatColor.YELLOW + "ヴァルハラサーバー",
+                "旧第三サバイバルサーバー", "s3")
                 .at(3, 1);
+        SlotBuilder s7Builder = createBuilder(Material.DIAMOND, ChatColor.GREEN + "公共施設サーバー",
+                "", "s7")
+                .at(4, 1);
 
-        List<SlotBuilder<Slot>> builders = Arrays.asList(s1Builder, s2Builder, s3Builder);
+        List<SlotBuilder<Slot>> builders = Arrays.asList(s1Builder, s2Builder, s3Builder, s7Builder);
 
         //(2)Menuを作成する.
         menu = ChestMenu.fromSize(2 * 9)
@@ -69,7 +75,7 @@ public class ServerSwitchMenu {
         requireNonNull(bungeeServerName);
 
         return SlotIconBuilder.of(iconMaterial)
-                .title(d -> ChatColor.BOLD + "" + ChatColor.YELLOW + serverName)
+                .title(d -> ChatColor.BOLD + "" + serverName)
                 .lore(d -> Collections.singletonList(ChatColor.GRAY + oldServerName))
                 .enchanted()
                 .toFunctionalSlotBuilder()
